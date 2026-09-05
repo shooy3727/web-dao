@@ -3,99 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineVerse - Premium Catalog</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Gái Gọi 247 - Nền tảng liên hệ, đăng bài miễn phí</title>
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
-<body class="premium-dark-theme">
+<body>
 
     <header class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo">Cine<span>Verse</span></a>
-            
-            <nav class="nav-menu">
-                <div class="region-menu">
-                    <button class="nav-link region-btn" data-region="bac">
-                        <i class="fa-solid fa-map-pin menu-icon"></i> Miền Bắc
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
-                    </button>
-                    <div class="province-dropdown"></div>
-                </div>
+            <a href="/" class="logo">
+                <i class="fa-solid fa-gem"></i>
+                <span>GAIGOI247</span>
+            </a>
 
-                <div class="region-menu">
-                    <button class="nav-link region-btn" data-region="trung">
-                        <i class="fa-solid fa-map-pin menu-icon"></i> Miền Trung
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
-                    </button>
-                    <div class="province-dropdown"></div>
-                </div>
+            <ul class="nav-menu" id="navMenu">
+                <li>
+                    <a href="#" class="nav-link region-btn active" data-region="bac">
+                    <span>Miền Bắc</span>
+                    <i class="fa-solid fa-chevron-down nav-arrow"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link region-btn" data-region="trung">
+                    <span>Miền Trung</span>
+                    <i class="fa-solid fa-chevron-down nav-arrow"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link region-btn" data-region="nam">
+                    <span>Miền Nam</span>
+                    <i class="fa-solid fa-chevron-down nav-arrow"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="nav-link region-btn" data-region="tay_nguyen">
+                    <span>Tây Nguyên</span>
+                    <i class="fa-solid fa-chevron-down nav-arrow"></i>
+                    </a>
+                </li>
+            </ul>
 
-                <div class="region-menu">
-                    <button class="nav-link region-btn" data-region="tay_nguyen">
-                        <i class="fa-solid fa-mountain menu-icon"></i> Tây Nguyên
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
-                    </button>
-                    <div class="province-dropdown"></div>
-                </div>
-
-                <div class="region-menu">
-                    <button class="nav-link region-btn" data-region="nam">
-                        <i class="fa-solid fa-map-pin menu-icon"></i> Miền Nam
-                        <i class="fa-solid fa-chevron-down arrow-icon"></i>
-                    </button>
-                    <div class="province-dropdown"></div>
-                </div>
-            </nav>
-
-            <div class="nav-actions">
-                <div class="search-box-desktop">
-                    <input type="text" placeholder="Tìm tên, địa điểm, dịch vụ...">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-                
-                <div class="auth-buttons-placeholder">
-                    </div>
-
-                <button class="mobile-toggle" aria-label="Toggle Menu">
-                    <i class="fa-solid fa-bars-staggered"></i>
-                </button>
-                <div class="user-profile">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=cherry" alt="Avatar">
-                </div>
-            </div>
+          <div class="nav-actions">
+            <a href="/auth" class="btn-post-free">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span class="btn-text">Đăng bài miễn phí</span>
+            </a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+          </div>
         </div>
     </header>
 
-    <main class="main-content">
-        
-        <section class="hero-banner compact-hero">
-            <div class="hero-glow"></div>
-            <div class="hero-body">
-                <span class="hero-tag"><i class="fa-solid fa-sparkles"></i> Thế Giới Giải Trí Premium</span>
-                
-                <div class="filter-container">
-                    <div class="province-display-inline">
-                        <i class="fa-solid fa-location-dot province-inline-icon"></i>
-                        <span class="province-inline-text">Chưa chọn tỉnh</span>
-                    </div>
+    <main class="main-wrapper">
 
-                    <div class="district-select-inline">
-                        <i class="fa-solid fa-map-location-dot district-inline-icon"></i>
-                        <div class="custom-select-wrapper district-select-wrapper">
-                            <select id="filterDistrict" class="premium-select district-inline-select">
-                                <option value="all">Chọn Quận/Huyện</option>
-                                </select>
-                        </div>
-                    </div>
+        <!-- Slogan -->
+        <div class="hero-slogan-box">
+            <h1 class="slogan-title">Tìm kiếm dễ dàng – Kết nối nhanh chóng, Đa dạng lựa chọn</h1>
+            <p class="slogan-subtitle">Đăng bài miễn phí – Không phí hoa hồng - Tiếp cận khách hàng</p>
+        </div>
+        
+        <section class="filter-hero-card">
+            <div class="filter-location-group">
+                <div class="province-badge">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <%= provinceInfo?.name || province || "Đang xác định vị trí" %>
+                </div>
+                <div class="select-wrapper">
+                  <select class="premium-select" id="filterDistrict">
+                    <option value="all">Chọn Quận / Huyện</option>
+                  </select>
                 </div>
             </div>
         </section>
 
-        <section class="movie-section">
-            
+        <section>
             <div class="section-header-group">
                 <div class="section-header">
                     <h2 class="section-title">
@@ -108,143 +91,255 @@
                     <div class="filter-group">
                         <label class="filter-group-label"><i class="fa-solid fa-tag"></i> Mức giá</label>
                         <div class="custom-select-wrapper">
-                            <select id="filterPrice" class="premium-select">
-                                <option value="all">Tất cả mức giá</option>
-                                <option value="low-high">Giá: Thấp đến Cao</option>
-                                <option value="high-low">Giá: Cao đến Thấp</option>
-                                <option value="under-500">Dưới 500k</option>
-                                <option value="500-1000">Từ 500k - 1 Triệu</option>
-                                <option value="above-1000">Trên 1 Triệu</option>
-                            </select>
+                          <select id="filterPrice" class="premium-select">
+                            <option value="all"
+                                <%= filters.price === "all" && filters.sort === "default"
+                                    ? "selected"
+                                    : ""
+                                %>
+                            >
+                                Tất cả mức giá
+                            </option>
+
+                            <option value="low-high"
+                                <%= filters.sort === "low-high" ? "selected" : "" %>
+                            >
+                                Giá: Thấp đến Cao
+                            </option>
+
+                            <option value="high-low"
+                                <%= filters.sort === "high-low" ? "selected" : "" %>
+                            >
+                                Giá: Cao đến Thấp
+                            </option>
+
+                            <option value="under-500"
+                                <%= filters.price === "under-500" ? "selected" : "" %>
+                            >
+                                Dưới 500k
+                            </option>
+
+                            <option value="500-1000"
+                                <%= filters.price === "500-1000" ? "selected" : "" %>
+                            >
+                                Từ 500k - 1 Triệu
+                            </option>
+
+                            <option value="above-1000"
+                                <%= filters.price === "above-1000" ? "selected" : "" %>
+                            >
+                                Trên 1 Triệu
+                            </option>
+
+                        </select>
                         </div>
                     </div>
 
                     <div class="filter-group">
                         <label class="filter-group-label"><i class="fa-solid fa-cake-candles"></i> Độ tuổi</label>
                         <div class="custom-select-wrapper">
-                            <select id="filterAge" class="premium-select">
-                                <option value="all">Tất cả độ tuổi</option>
-                                <option value="18-22">Từ 18 - 22 tuổi</option>
-                                <option value="23-26">Từ 23 - 26 tuổi</option>
-                                <option value="27plus">Trên 27 tuổi</option>
-                            </select>
+                          <select id="filterAge" class="premium-select">
+                            <option value="all"
+                              <%= filters.age === "all" ? "selected" : "" %>>
+                              Tất cả độ tuổi
+                            </option>
+                            <option value="18-20"
+                              <%= filters.age === "18-20" ? "selected" : "" %>>
+                              Từ 18 - 20 tuổi
+                            </option>
+
+                            <option value="21-23"
+                              <%= filters.age === "21-23" ? "selected" : "" %>>
+                              Từ 21 - 23 tuổi
+                            </option>
+
+                            <option value="24-26"
+                              <%= filters.age === "24-26" ? "selected" : "" %>>
+                              Từ 24 - 26 tuổi
+                            </option>
+
+                            <option value="27plus"
+                              <%= filters.age === "27plus" ? "selected" : "" %>>
+                              Trên 27 tuổi
+                            </option>
+
+                        </select>
                         </div>
                     </div>
 
                     <div class="filter-group">
-                        <label class="filter-group-label"><i class="fa-solid fa-calendar-plus"></i> Thời gian</label>
-                        <div class="filter-segmented-control">
-                            <button class="segment-btn active" data-value="default">Mặc định</button>
-                            <button class="segment-btn" data-value="newest">Mới gia nhập</button>
-                        </div>
+                      <label class="filter-group-label"><i class="fa-solid fa-calendar-plus"></i> Thời gian</label>
+                      <div class="filter-segmented-control">
+                        <button
+                          class="segment-btn <%= filters.time === "default" ? "active" : "" %>"
+                          data-value="default">
+                          Mặc định
+                        </button>
+
+                        <button
+                          class="segment-btn <%= filters.time === "newest" ? "active" : "" %>"
+                          data-value="newest">
+                          Mới gia nhập
+                        </button>
+
                     </div>
+                  </div>
                 </div>
             </div>
-            
-            <div class="skeleton-grid" style="display: none;">
-                <% for(let i=0; i<4; i++) { %>
-                    <div class="skeleton-card">
-                        <div class="skeleton-thumb-glow"></div>
-                        <div class="skeleton-line title"></div>
-                        <div class="skeleton-line meta"></div>
-                    </div>
-                <% } %>
-            </div>
 
-            <div class="movie-grid" id="profileGrid">
+            <div class="model-grid" id="profileGrid">
                 <% if (profiles && profiles.length > 0) { %>
                     <% profiles.forEach(profile => { %>
-                        <div class="movie-card">
-                            <div class="card-img-wrapper">
-                                <div class="card-badges">
-                                    <span class="badge badge-verified">
-                                        <i class="fa-solid fa-circle-check"></i> Verified
-                                    </span>
-                                    <span class="badge badge-vip">
-                                        <i class="fa-solid fa-crown"></i> VIP
-                                    </span>
-                                </div>
+                    <!-- CARD 1 -->
+                    <article
+                        class="model-card"
+                        data-url="/<%= profile.province %>/<%= profile.area %>/<%= profile.id %>"
+                    >
+                        <div class="card-media">
+                            <% if (profile.is_verified) { %>
+                              <span class="badge-verified">
+                                  <i class="fa-solid fa-circle-check"></i> Verified
+                              </span>
+                            <% } %>
+                            <span class="card-rating"><i class="fa-solid fa-star"></i> 5.0</span>
 
-                                <% if (profile.images && profile.images.length > 0) { %>
-                                    <img src="<%= profile.images[0] %>" alt="<%= profile.title %>" loading="lazy">
-                                <% } else { %>
-                                    <img src="/images/no-image.jpg" alt="No Image" loading="lazy">
+                            <!-- Mũi tên chuyển ảnh -->
+                            <button class="slider-btn prev-btn" onclick="slideImage(this, -1, event)" aria-label="Ảnh trước">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+                            <button class="slider-btn next-btn" onclick="slideImage(this, 1, event)" aria-label="Ảnh sau">
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+
+                            <!-- Khối chứa danh sách ảnh -->
+                            <div class="card-slider">
+                                <% if (profile.images && profile.images.length) { %>
+
+                                    <% profile.images.forEach((image, index) => { %>
+
+                                      <img
+                                          src="<%= image %>"
+                                          alt="<%= profile.title %>"
+                                          class="<%= index === 0 ? 'active' : '' %>"
+                                          loading="lazy"
+                                      >
+
+                                    <% }) %>
+
                                 <% } %>
-
-                                <span class="card-rating">
-                                    <i class="fa-solid fa-phone"></i>
-                                    <%= profile.phone ? profile.phone.slice(0, -4) + "****" : "Liên hệ" %>
-                                </span>
-
-                                <div class="card-hover-actions">
-                                    <button class="action-btn view-detail">
-                                        <i class="fa-solid fa-eye"></i>
-                                        <span>Xem Chi Tiết</span>
-                                    </button>
-                                    <div class="action-row-buttons">
-                                        <button class="action-btn-sm favorite">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                        <button class="action-btn-sm contact">
-                                            <i class="fa-solid fa-comment-dots"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-info">
-                                <h3 class="card-title"><%= profile.title %></h3>
-                                <div class="card-meta">
-                                    <span class="meta-price"><%= profile.price %></span>
-                                    <span class="meta-divider">•</span>
-                                    <span class="meta-location">
-                                        <i class="fa-solid fa-location-dot"></i> <%= profile.location %>
-                                    </span>
-                                </div>
                             </div>
                         </div>
-                    <% }) %>
-                <% } else { %>
-                    <div class="empty-state">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <h2>Đang cập nhật dữ liệu</h2>
-                        <p>Hiện tại khu vực <strong><%= province || "này" %></strong> chưa có profile.</p>
-                        <p>Vui lòng quay lại sau.</p>
-                    </div>
-                <% } %>
+
+                        <div class="card-content">
+                            <h3 class="card-title"><%= profile.title %></h3>
+                            <div class="card-price-loc">
+                                <span class="price"><%= Number(profile.price || 0).toLocaleString("vi-VN") %> VNĐ</span>
+                                <span class="location">
+                                    <i class="fa-solid fa-location-dot"></i> 
+                                    <%= profile.area || profile.location || "" %>
+                                </span>
+                            </div>
+                            
+                            <div class="btn-card-phone">
+                                <i class="fa-solid fa-phone"></i>
+                                <%= profile.phone
+                                    ? profile.phone.substring(0, 6) + "****"
+                                    : ""
+                                %>
+                            </div>
+
+                            <div class="stats-grid">
+
+                                <div class="stat-box stat-full">
+                                    Số đo:
+                                    <strong>
+                                        <%= profile.measurements?.height || "--" %>
+                                        -
+                                        <%= profile.measurements?.hop || "--" %>
+                                        -
+                                        <%= profile.measurements?.hip || "--" %>
+                                    </strong>
+                                </div>
+
+                                <div class="stat-box">
+                                    Cao:
+                                    <strong>
+                                        <%= profile.measurements?.height || "--" %>
+                                    </strong>
+                                </div>
+
+                                <div class="stat-box">
+                                    Nặng:
+                                    <strong>
+                                        <%= profile.measurements?.weight || "--" %>
+                                    </strong>
+                                </div>
+
+                            </div>
+                        </div>
+                    </article>
+                <% }) %>
+
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <h3>Chưa có hồ sơ nào</h3>
+                    <p>Hiện chưa có hồ sơ phù hợp với bộ lọc của bạn.</p>
+                </div>
+            <% } %>
             </div>
 
-            <div class="load-more-container">
-                <button id="loadMore" class="btn-premium-load">
-                    <span>Khám phá thêm</span>
-                    <i class="fa-solid fa-arrow-rotate-right"></i>
-                </button>
-                <div class="infinite-loader" id="infiniteLoader" style="display: none;">
-                    <div class="spinner-circle"></div>
-                    <span>Đang tải nội dung premium...</span>
-                </div>
-            </div>
+            <!-- Load More -->
+            <% if (profiles && profiles.length >= 6) { %>
+
+              <div class="load-more-wrapper">
+                  <button type="button" id="loadMore" class="load-more-btn">
+                      <i class="fa-solid fa-plus"></i>
+                      <span>Hiển thị thêm</span>
+                  </button>
+              </div>
+
+            <% } %>
 
         </section>
-
     </main>
 
+    <!-- FOOTER -->
     <footer class="premium-footer">
-        <div class="footer-blur-glow"></div>
-        <div class="footer-content">
-            <p>&copy; 2026 CineVerse Catalog. All Premium Content reserved.</p>
+        <div class="footer-container">
+            <p class="copyright-text">&copy; <%= new Date().getFullYear() %> GaiGoi247. All rights reserved</p>
+            
+            <div class="footer-contact">
+                <span class="contact-label"><i class="fa-solid fa-headset"></i> Liên hệ:</span>
+                <a href="https://t.me/yourusername" target="_blank" rel="noopener" class="contact-item telegram">
+                    <i class="fa-brands fa-telegram"></i> Telegram
+                </a>
+            </div>
         </div>
     </footer>
 
-    <script>
-        window.PROVINCES = <%- JSON.stringify(provinces) %>;
-        window.currentProvince = "<%= province %>";
-    </script>
-    <script src="js/load.script.js"></script>
-    <script src="/js/api.js"></script>
-    <script src="/js/render.js"></script>
-    <script src="/js/province.js"></script>
+    <button class="back-to-top" id="backToTopBtn" aria-label="Back to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
     <script src="/js/config/regions.js"></script>
     <script src="/js/helpers/regionHelper.js"></script>
+
+    <script>
+        window.currentProvince = "<%= province || '' %>";
+        window.currentArea = "<%= area || 'all' %>";
+
+        window.filterState = {
+            price: "<%= filters.price || 'all' %>",
+            sort: "<%= filters.sort || 'default' %>",
+            age: "<%= filters.age || 'all' %>",
+            time: "<%= filters.time || 'default' %>"
+        };
+    </script>
+
+    <script src="/js/render.js"></script>
+    <script src="/js/load.js"></script>
+    <script src="/js/province.js"></script>
+    <script src="/js/main.js"></script>  
 </body>
 </html>

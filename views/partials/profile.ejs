@@ -1,0 +1,208 @@
+<% if (!profile) { %>
+
+  <!-- ================= EMPTY STATE (CHƯA CÓ HỒ SƠ) ================= -->
+  <div class="empty-state-card">
+    <div class="empty-icon-wrapper">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+        <polyline points="14 2 14 8 20 8"></polyline>
+        <line x1="12" y1="18" x2="12" y2="12"></line>
+        <line x1="9" y1="15" x2="15" y2="15"></line>
+      </svg>
+    </div>
+    <h3 class="empty-title">Bạn chưa tạo hồ sơ</h3>
+    <p class="empty-desc">Tạo hồ sơ cá nhân ngay hôm nay để thu hút khách hàng và đối tác trên CINEVANE.</p>
+    <a href="/dashboard?edit=1" class="btn btn-primary btn-create-now">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      <span>Tạo hồ sơ ngay</span>
+    </a>
+  </div>
+
+<% } else { %>
+
+  <!-- ================= PROFILE VIEW (ĐÃ CÓ HỒ SƠ) ================= -->
+  <div class="profile-view-container">
+    
+    <!-- HEADER HỒ SƠ -->
+    <div class="profile-card-header form-section">
+      <div class="profile-title-wrapper">
+        <span class="badge-status">Đã xuất bản</span>
+        <h1 class="profile-main-title"><%= profile.title %></h1>
+      </div>
+      
+      <div class="profile-actions-top">
+        <a href="/dashboard?edit=1" class="btn btn-edit-profile">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          <span>Chỉnh sửa</span>
+        </a>
+        <button type="button" id="deleteProfile" class="btn btn-delete-profile">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+          <span>Xóa hồ sơ</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- THÔNG TIN TỔNG QUAN (INFO GRID) -->
+    <div class="profile-info-grid">
+      <div class="info-card">
+        <div class="info-icon text-pink">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        </div>
+        <div class="info-details">
+          <span class="info-label">Tỉnh / Thành phố</span>
+          <strong 
+            class="info-value"
+            id="profileProvince"
+            data-slug="<%= profile.province || '' %>"
+          ><%= profile.province || 'Chưa cập nhật' %></strong>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon text-purple">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        </div>
+        <div class="info-details">
+          <span class="info-label">Khu vực / Quận</span>
+          <strong 
+            class="info-value"
+            id="profileArea"
+            data-province="<%= profile.province || '' %>"
+            data-slug="<%= profile.area || '' %>"
+          ><%= profile.area || 'Chưa cập nhật' %></strong>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon text-gold">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+        </div>
+        <div class="info-details">
+          <span class="info-label">Mức giá / Chi phí</span>
+          <strong class="info-value price-text"><%= profile.price ? profile.price.toLocaleString('vi-VN') + ' VNĐ' : 'Thỏa thuận' %></strong>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-icon text-red">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        </div>
+        <div class="info-details">
+          <span class="info-label">Số điện thoại</span>
+          <strong class="info-value"><%= profile.phone || 'Chưa cung cấp' %></strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION CHỈ SỐ HÌNH THỂ (MEASUREMENTS) -->
+    <div class="form-section profile-measurements-section">
+      <h2 class="section-title">Chỉ số hình thể</h2>
+      <div class="measurements-grid">
+        <!-- Chiều cao -->
+        <div class="measurement-card">
+          <div class="measure-icon text-pink">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path><polyline points="8 6 12 2 16 6"></polyline><polyline points="8 18 12 22 16 18"></polyline></svg>
+          </div>
+          <div class="measure-info">
+            <span class="measure-label">Chiều cao</span>
+            <span class="measure-value"><%= profile.measurements?.height ? profile.measurements?.height + ' cm' : '---' %></span>
+          </div>
+        </div>
+
+        <!-- Cân nặng -->
+        <div class="measurement-card">
+          <div class="measure-icon text-purple">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z"></path><path d="M12 5.25V12"></path></svg>
+          </div>
+          <div class="measure-info">
+            <span class="measure-label">Cân nặng</span>
+            <span class="measure-value"><%= profile.measurements?.weight ? profile.measurements?.weight + ' kg' : '---' %></span>
+          </div>
+        </div>
+
+        <!-- Số đo 3 vòng -->
+        <div class="measurement-card item-three-sides">
+          <div class="measure-icon text-gold">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
+          </div>
+          <div class="measure-info">
+            <span class="measure-label">Số đo 3 vòng</span>
+            <% if (profile.measurements?.bust || profile.measurements?.waist || profile.measurements?.hip) { %>
+              <div class="three-sides-values">
+                <span class="side-tag" title="Vòng 1 (Bust)">V1: <strong><%= profile.measurements?.bust || '--' %></strong></span>
+                <span class="side-divider">•</span>
+                <span class="side-tag" title="Vòng 2 (Waist)">V2: <strong><%= profile.measurements?.waist || '--' %></strong></span>
+                <span class="side-divider">•</span>
+                <span class="side-tag" title="Vòng 3 (Hip)">V3: <strong><%= profile.measurements?.hip || '--' %></strong></span>
+              </div>
+            <% } else { %>
+              <span class="measure-value">Chưa cập nhật</span>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BỘ BỘ ẢNH THƯ VIỆN (IMAGE GALLERY) -->
+    <div class="form-section profile-gallery-section">
+      <h2 class="section-title">Hình ảnh đính kèm</h2>
+      
+      <% 
+        let imgList = [];
+        if (Array.isArray(profile.images)) {
+          imgList = profile.images;
+        } else if (typeof profile.images === 'string' && profile.images.trim() !== '') {
+          imgList = profile.images.split(',').map(s => s.trim());
+        }
+      %>
+
+      <% if (imgList.length > 0) { %>
+        <div class="profile-gallery-grid">
+          <% imgList.forEach(function(imgUrl) { %>
+            <div class="gallery-item">
+              <img src="<%= imgUrl %>" alt="Ảnh hồ sơ" loading="lazy" onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'">
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <p class="no-data-text">Chưa có hình ảnh nào được tải lên.</p>
+      <% } %>
+    </div>
+
+    <!-- MÔ TẢ CHI TIẾT -->
+    <div class="form-section profile-desc-section">
+      <h2 class="section-title">Mô tả hồ sơ</h2>
+      <div class="profile-description-content">
+        <p><%= profile.description || 'Chưa có thông tin mô tả chi tiết.' %></p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= DELETE CONFIRMATION MODAL ================= -->
+  <div class="modal-overlay" id="deleteModal" aria-hidden="true" inert>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" class="modal-close-btn" id="closeModalBtn" aria-label="Đóng">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="modal-icon-wrapper">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+      </div>
+
+      <div class="modal-body-content">
+        <h3 class="modal-title" id="modalTitle">Xác nhận xóa hồ sơ?</h3>
+        <p class="modal-desc">Hành động này không thể hoàn tác. Toàn bộ thông tin và hình ảnh hồ sơ của bạn sẽ bị xóa vĩnh viễn. Bạn chỉ đăng được tối đa 3 lần.</p>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-cancel-modal" id="cancelDeleteBtn">Hủy bỏ</button>
+        <button type="button" class="btn btn-confirm-delete" id="confirmDeleteBtn">
+          <span class="btn-text">Xóa vĩnh viễn</span>
+          <span class="btn-spinner hidden"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+<% } %>

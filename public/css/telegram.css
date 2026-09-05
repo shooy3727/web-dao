@@ -1,0 +1,431 @@
+/* ==================================================
+   1. DESIGN SYSTEM (Đồng bộ với style auth.ejs nhưng nền tối)
+   ================================================== */
+:root {
+    /* Màu sắc chủ đạo (Xanh Tím Premium) */
+    --color-main-purple: hsl(340, 72%, 51%);
+    --color-main-blue: #687de8;
+    --color-telegram: #54a9eb;
+    
+    /* Nền tối Premium */
+    --bg-dark-premium: #a6296e;
+    --card-bg-glass: rgba(255, 255, 255, 0.04); /* Glassmorphism nhẹ cho nền tối */
+    
+    /*   Text Colors trên nền tối */
+    --text-main: #ffffff;
+    --text-muted: #b0b8c4;
+    --text-dim: #707a8a;
+    
+    /* Gradient xanh tím */
+    --accent-gradient: linear-gradient(135deg, #b2e048 0%, #007bff 100%);
+    --check-gradient: linear-gradient(135deg, #00dbde 0%, #af04b1 100%);
+
+    /* Borders & Shadows */
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.4);
+    --glow-purple: rgba(168, 36, 255, 0.3);
+    
+    /* Dimensions */
+    --radius-lg: 28px;
+    --radius-md: 16px;
+    --radius-full: 9999px;
+}
+
+/* ==================================================
+   2. RESET & BASE STYLES
+   ================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.telegram-page-body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--bg-dark-premium);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
+}
+
+.text-center { text-align: center; }
+
+/* ==================================================
+   3. BACKGROUND GLOW (Blur blobs giống auth.ejs)
+   ================================================== */
+.background-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.2;
+}
+
+.blob-purple {
+    top: -10%;
+    left: 10%;
+    width: 400px;
+    height: 400px;
+    background-color: var(--color-main-purple);
+}
+
+.blob-blue {
+    bottom: -10%;
+    right: 10%;
+    width: 500px;
+    height: 500px;
+    background-color: var(--color-main-blue);
+}
+
+/* ==================================================
+   4. MAIN CONTENT & CARD (Glassmorphism)
+   ================================================== */
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.verif-card-glass {
+    background: var(--card-bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-premium);
+    width: 100%;
+    max-width: 480px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hiệu ứng viền Glow nhẹ phía trên */
+.verif-card-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-gradient);
+    opacity: 0.5;
+}
+
+/* Logo giống auth.ejs */
+.logo {
+    font-weight: 800;
+    font-size: 1.8rem;
+    letter-spacing: -1px;
+    color: var(--text-main);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.logo span {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.logo-center {
+    margin-bottom: 2rem;
+}
+
+/* Telegram Icon Animation */
+.telegram-icon-wrapper {
+    margin-bottom: 1.5rem;
+}
+
+.telegram-float-icon {
+    font-size: 5rem;
+    color: var(--color-telegram);
+    animation: floating 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 15px rgba(84, 169, 235, 0.4));
+}
+
+.verif-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+}
+
+.verif-subtitle {
+    color: var(--text-muted);
+    font-size: 15px;
+    margin-bottom: 2.5rem;
+    padding: 0 10px;
+}
+
+/* Benefits List */
+.benefits-list {
+    list-style: none;
+    margin-bottom: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.benefits-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14.5px;
+    color: var(--text-main);
+}
+
+.benefits-list li i {
+    font-size: 1.1rem;
+    /* Hiệu ứng màu gradient cho icon check */
+    background: var(--check-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ==================================================
+   5. TELEGRAM WIDGET PLACEHOLDER (Trọng tâm)
+   ================================================== */
+.telegram-widget-placeholder {
+    width: 100%;
+    min-height: 54px; /* Kích thước tương đối của widget lớn */
+    background: rgba(84, 169, 235, 0.1);
+    border: 2px dashed rgba(84, 169, 235, 0.4);
+    border-radius: var(--radius-full);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+    cursor: wait;
+}
+
+.telegram-widget-placeholder:hover {
+    border-color: var(--color-telegram);
+    background: rgba(84, 169, 235, 0.15);
+    box-shadow: 0 0 20px rgba(84, 169, 235, 0.2);
+}
+
+.hidden {
+    display: none;
+}
+
+.telegram-loading{
+    margin-top: 24px;
+    padding: 18px 20px;
+    border-radius: 18px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(12px);
+
+    animation: fadeIn .25s ease;
+}
+
+.loading-spinner{
+    width: 46px;
+    height: 46px;
+
+    border: 4px solid rgba(255,255,255,.15);
+    border-top: 4px solid #229ED9;
+    border-radius: 50%;
+
+    animation: telegramSpin .8s linear infinite;
+}
+
+.telegram-loading p{
+    margin: 0;
+
+    font-size: 15px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.hidden{
+    display: none;
+}
+
+@keyframes telegramSpin{
+    from{
+        transform: rotate(0deg);
+    }
+
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.placeholder-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--color-telegram);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.placeholder-content i {
+    font-size: 1.2rem;
+}
+
+.redirect-note {
+    color: #eff1f5;
+    font-size: 13px;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+}
+
+/* ==================================================
+   6. WHY BOX (Lớp Glassmorphism phụ)
+   ================================================== */
+.why-box-glass {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    text-align: left;
+}
+
+.why-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: var(--color-main-blue);
+}
+
+.why-header i {
+    font-size: 1.1rem;
+}
+
+.why-header h3 {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.why-content {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-left: 26px; /* Align với header */
+}
+
+.why-content li {
+    font-size: 13px;
+    color: #eff1f5;
+    position: relative;
+}
+
+/* Bullet custom */
+.why-content li::before {
+    content: '•';
+    position: absolute;
+    left: -15px;
+    color: var(--text-dim);
+}
+
+/* ==================================================
+   7. FOOTER
+   ================================================== */
+.minimal-footer {
+    padding: 20px;
+    border-top: 1px solid var(--border-glass);
+    background: rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 1;
+}
+
+.minimal-footer p {
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+/* ==================================================
+   8. ANIMATIONS & RESPONSIVE
+   ================================================== */
+
+/* Fade In Animation cho Card */
+.fade-in {
+    animation: fadeInCard 0.8s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Floating Animation cho Icon Telegram */
+@keyframes floating {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Responsive cho Mobile */
+@media (max-width: 480px) {
+    .verif-card-glass {
+        padding: 2.5rem 1.5rem;
+        border-radius: var(--radius-md);
+    }
+    
+    .verif-title {
+        font-size: 1.5rem;
+    }
+    
+    .telegram-float-icon {
+        font-size: 4rem;
+    }
+    
+    .benefits-list li {
+        font-size: 13.5px;
+    }
+}

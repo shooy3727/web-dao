@@ -1,0 +1,716 @@
+/* ==================================================
+   1. DESIGN SYSTEM & VARIABLE IMPORT
+   ================================================== */
+:root {
+  /* 1. HỒNG NEON TƯỜI CHỦ ĐẠO */
+  --color-pink: #ff007f;
+  --color-pink-glow: rgba(255, 0, 127, 0.3);
+  --color-pink-soft: #fff2f8;
+  --color-pink-light: #ffe5f2;
+
+  /* 2. ĐỎ LED NỔI BẬT */
+  --color-red: #ff1a53;
+  --color-red-glow: rgba(255, 26, 83, 0.35);
+
+  /* 3. VÀNG NẮNG / GOLD ÁNH KIM */
+  --color-gold: #ffb700;
+  --color-gold-light: #fff8e6;
+
+  /* 4. XANH TÍM NEON */
+  --color-teal: #a824ff;
+  --color-purple-glow: rgba(168, 36, 255, 0.25);
+
+  /* GRADIENT DẢI ĐÈN LED */
+  --accent-gradient: linear-gradient(135deg, #ff007f 0%, #ff1a53 35%, #ffb700 70%, #a824ff 100%);
+
+  /* NỀN PHA MÀU SÁNG */
+  --bg-gradient-glow: 
+    radial-gradient(circle at 15% 15%, rgba(255, 0, 127, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 85% 20%, rgba(168, 36, 255, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 50% 60%, rgba(255, 26, 83, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 85%, rgba(255, 183, 0, 0.22) 0%, transparent 45%),
+    linear-gradient(180deg, #fff0f6 0%, #fbe8f3 50%, #f8e1ef 100%);
+
+  /* Backgrounds & Glassmorphism */
+  --bg-main: #fff0f6;
+  --bg-secondary: #fde2f0;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --glass-bg: rgba(255, 245, 250, 0.88);
+
+  /* Text Colors */
+  --text-main: #2b0c23;
+  --text-muted: #734568;
+  --text-light: #9c6e91;
+
+  /* Borders & Shadows */
+  --border-light: rgba(255, 0, 127, 0.2);
+  --border-gold: rgba(255, 183, 0, 0.45);
+  --border-purple: rgba(168, 36, 255, 0.25);
+
+  --shadow-sm: 0 4px 15px rgba(255, 0, 127, 0.08);
+  --shadow-md: 0 10px 28px rgba(255, 0, 127, 0.14), 0 0 12px rgba(168, 36, 255, 0.1);
+  --shadow-lg: 0 18px 40px rgba(255, 26, 83, 0.2), 0 0 20px rgba(255, 0, 127, 0.15);
+
+  /* Dimensions & Radius */
+  --radius-sm: 10px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+  --radius-full: 9999px;
+  --header-height: 64px;
+}
+
+/* ==================================================
+   2. RESET & BASE STYLES
+   ================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.auth-page-body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-main);
+  background-image: var(--bg-gradient-glow);
+  background-attachment: fixed;
+  color: var(--text-main);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden;
+}
+
+/* ==================================================
+   3. HEADER / NAVBAR
+   ================================================== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-light);
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -0.5px;
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.logo span {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-back-home {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-full);
+  color: var(--text-main);
+  font-weight: 700;
+  font-size: 13.5px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.btn-back-home:hover {
+  border-color: var(--color-pink);
+  color: var(--color-red);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ==================================================
+   4. MAIN LAYOUT & AUTH CONTAINER
+   ================================================== */
+.auth-container-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: calc(var(--header-height) + 40px) 16px 40px;
+  flex-grow: 1;
+}
+
+/* Quầng sáng LED tỏa ra phía sau card */
+.hero-glow {
+  position: absolute;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, var(--color-pink-glow) 0%, rgba(255, 183, 0, 0.15) 50%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.auth-card-glass {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1040px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  overflow: hidden;
+}
+
+/* ==================================================
+   5. CỘT TRÁI: PANEL GIỚI THIỆU (INFO)
+   ================================================== */
+.auth-info-panel {
+  padding: 3.5rem 2.5rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(253, 226, 240, 0.5) 100%);
+  border-right: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: var(--color-pink-soft);
+  border: 1px solid var(--color-pink-glow);
+  color: var(--color-pink);
+  border-radius: var(--radius-full);
+  font-size: 12.5px;
+  font-weight: 700;
+  width: fit-content;
+  margin-bottom: 1.25rem;
+}
+
+.logo i {
+  color: #ff007f;
+}
+
+.auth-info-title {
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1.35;
+  margin-bottom: 1rem;
+  color: var(--text-main);
+}
+
+.auth-info-desc {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.auth-features-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: var(--radius-sm);
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-pink);
+  font-size: 1.1rem;
+}
+
+.feature-item h4 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.feature-item p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ==================================================
+   6. CỘT PHẢI: FORM PANEL & CONTROLS
+   ================================================== */
+.auth-form-panel {
+  padding: 3.5rem 2.5rem;
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Tab chuyển Đăng nhập / Đăng ký */
+.auth-tab-control {
+  display: flex;
+  background: var(--bg-secondary);
+  padding: 4px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  margin-bottom: 2rem;
+}
+
+.auth-tab-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: 13.5px;
+  border-radius: calc(var(--radius-md) - 4px);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.auth-tab-btn.active {
+  background: #ffffff;
+  color: var(--color-pink);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Form Visibility */
+.auth-form {
+  display: none;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.auth-form.active {
+  display: flex;
+}
+
+.form-header h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.form-header p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+/* Input Fields */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-label i {
+  color: var(--color-pink);
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input, .premium-select {
+  width: 100%;
+  padding: 11px 14px 11px 40px;
+  background: #ffffff;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-size: 14px;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.auth-input::placeholder {
+  color: var(--text-light);
+}
+
+.auth-input:focus, .premium-select:focus {
+  border-color: var(--color-pink);
+  box-shadow: 0 0 0 3.5px var(--color-pink-glow);
+  background: #ffffff;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 14px;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.toggle-password:hover {
+  color: var(--color-pink);
+}
+
+/* Custom Select Dropdown */
+.custom-select-wrapper {
+  position: relative;
+}
+
+.premium-select {
+  padding-left: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff007f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  background-size: 14px;
+  cursor: pointer;
+}
+
+.premium-select option {
+  background-color: #ffffff;
+  color: var(--text-main);
+}
+
+/* Form Options & Links */
+.form-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+  accent-color: var(--color-pink);
+  width: 15px;
+  height: 15px;
+}
+
+.forgot-link, .inline-link {
+  color: var(--color-red);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.forgot-link:hover, .inline-link:hover {
+  text-decoration: underline;
+}
+
+/* Nút Submit chính (Neon Gradient Pink-Red) */
+.btn-auth-submit {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  border: none;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-red), var(--color-pink));
+  color: #ffffff;
+  font-size: 14.5px;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px var(--color-red-glow);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-auth-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 0, 127, 0.45);
+}
+
+.form-footer-switch {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+.form-footer-switch a {
+  color: var(--color-pink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.form-footer-switch a:hover {
+  text-decoration: underline;
+}
+
+/* ==================================================
+   7. FOOTER
+   ================================================== */
+.premium-footer {
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.7);
+  border-top: 1px solid var(--border-light);
+}
+
+.footer-content p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.field-error-text {
+  color: var(--color-red, #ff1a53);
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 5px;
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+.field-error-text{
+  display:none;
+}
+
+.alert-error{
+  color: #bf0f0f;
+}
+
+.alert-success {
+  color: #86efac;
+}
+
+.field-error-text.active {
+  display: flex;
+}
+
+/* Đổi màu viền ô input thành đỏ khi mật khẩu không khớp */
+.auth-input.input-error {
+  border-color: var(--color-red, #ff1a53) !important;
+  box-shadow: 0 0 0 3px rgba(255, 26, 83, 0.2) !important;
+}
+
+/* ==================================================
+   8. RESPONSIVE MOBILE - PREMIUM CYBER/GLASS UI
+   ================================================== */
+@media (max-width: 768px) {
+  /* Layout chính */
+  body.auth-page-body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Header Navbar Mobile */
+  .navbar {
+    height: 60px;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Logo nằm bên trái góc màn hình */
+  .nav-container {
+    justify-content: flex-start !important; /* Đẩy logo sang trái đối diện màn hình */
+    padding: 0 20px !important;
+  }
+
+  .btn-back-home, .nav-actions {
+    display: none !important; /* Xóa nút Trang chủ */
+  }
+
+  .logo {
+    font-size: 1.45rem;
+    font-weight: 800;
+  }
+
+  .logo i {
+    color: #ff007f;
+  }
+
+  /* Main Wrapper: Căn giữa Form trên toàn bộ màn hình */
+  .auth-container-wrapper {
+    padding: calc(60px + 20px) 16px 24px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+  }
+
+  /* Card Glassmorphism Mobile Premium */
+  .auth-card-glass {
+    grid-template-columns: 1fr;
+    width: 100% !important;
+    max-width: 440px !important; /* Form mở rộng đẹp mắt, vừa vặn màn hình */
+    border-radius: 24px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(24px) !important;
+    -webkit-backdrop-filter: blur(24px) !important;
+    border: 1.5px solid rgba(255, 0, 127, 0.25) !important;
+    box-shadow: 0 12px 35px rgba(255, 0, 127, 0.15), 0 0 15px rgba(168, 36, 255, 0.1) !important;
+  }
+
+  .auth-info-panel {
+    display: none !important; /* Ẩn cột bên trái */
+  }
+
+  /* Form Panel Detail */
+  .auth-form-panel {
+    padding: 2rem 1.5rem !important;
+  }
+
+  /* Header Form */
+  .form-header h2 {
+    font-size: 1.4rem;
+    font-weight: 800;
+    text-align: center;
+  }
+
+  .form-header p {
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Tab Control (Đăng nhập / Đăng ký) */
+  .auth-tab-control {
+    padding: 5px;
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
+    background: rgba(240, 220, 235, 0.6);
+  }
+
+  .auth-tab-btn {
+    padding: 11px;
+    font-size: 13.5px;
+    font-weight: 800;
+    border-radius: 10px;
+  }
+
+  /* Field & Inputs Mobile */
+  .form-group {
+    gap: 6px;
+  }
+
+  .form-label {
+    font-size: 13px;
+  }
+
+  .auth-input {
+    font-size: 15px !important; /* Cỡ chữ vừa vặn, không bị tự động zoom trên iOS Safari */
+    padding: 13px 14px 13px 42px !important;
+    border-radius: 12px !important;
+    border: 1.5px solid rgba(255, 0, 127, 0.2) !important;
+    background: #ffffff !important;
+  }
+
+  .auth-input:focus {
+    box-shadow: 0 0 0 4px rgba(255, 0, 127, 0.18) !important;
+  }
+
+  .input-icon, .toggle-password {
+    font-size: 16px;
+    left: 14px;
+  }
+
+  .toggle-password {
+    left: auto;
+    right: 14px;
+  }
+
+  /* Form Options & Links */
+  .form-options {
+    font-size: 12.5px;
+    margin-top: 4px;
+  }
+
+  /* Nút Submit Nổi Bật */
+  .btn-auth-submit {
+    padding: 14px !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    border-radius: 99px !important;
+    margin-top: 12px !important;
+    box-shadow: 0 6px 20px rgba(255, 26, 83, 0.35) !important;
+  }
+
+  .form-footer-switch {
+    font-size: 12.5px;
+    margin-top: 12px;
+  }
+
+  /* Footer */
+  .premium-footer {
+    padding: 14px 20px;
+  }
+}
+
+/* Màn hình siêu nhỏ (iPhone SE / 375px) */
+@media (max-width: 380px) {
+  .auth-container-wrapper {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .auth-form-panel {
+    padding: 1.5rem 1rem !important;
+  }
+}

@@ -1,70 +1,204 @@
-function renderCard(profile) {
+window.renderCard = function (profile) {
 
-    const image =
-        profile.images && profile.images.length > 0
-            ? profile.images[0]
-            : "/images/no-image.jpg";
+    const detailUrl =
+        `/${profile.province}/${profile.area}/${profile.id}`;
+
+    // ==============================
+    // Images
+    // ==============================
+
+    const images =
+        profile.images && profile.images.length
+            ? profile.images
+            : ["/images/no-image.jpg"];
+
+
+    // ==============================
+    // Phone
+    // ==============================
 
     const phone = profile.phone
-        ? profile.phone.slice(0, -4) + "****"
-        : "Liên hệ";
+        ? profile.phone.substring(0, 6) + "****"
+        : "";
+
+
+    // ==============================
+    // Price
+    // ==============================
+
+    const price =
+        Number(profile.price || 0).toLocaleString("vi-VN");
+
+
+    // ==============================
+    // Measurements
+    // ==============================
+
+    const height =
+        profile.measurements?.height || "--";
+
+    const weight =
+        profile.measurements?.weight || "--";
+
+    const hop =
+        profile.measurements?.hop || "--";
+
+    const hip =
+        profile.measurements?.hip || "--";
+
+
+    // ==============================
+    // Render images
+    // ==============================
+
+    const imageHTML = images.map((image, index) => `
+        <img
+            src="${image}"
+            alt="${profile.title || ""}"
+            class="${index === 0 ? "active" : ""}"
+            loading="lazy"
+        >
+    `).join("");
+
+
+    // ==============================
+    // Card
+    // ==============================
 
     return `
-        <div class="movie-card">
+        <article
+            class="model-card"
+            data-url="${detailUrl}"
+        >
 
-            <div class="card-img-wrapper">
+            <div class="card-media">
 
-                <div class="card-badges">
+                ${
+                    profile.is_verified
+                        ? `
+                            <span class="badge-verified">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Verified
+                            </span>
+                          `
+                        : ""
+                }
 
-                    <span class="badge badge-verified">
-                        <i class="fa-solid fa-circle-check"></i>
-                        Verified
+
+                <span class="card-rating">
+                    <i class="fa-solid fa-star"></i>
+                    5.0
+                </span>
+
+
+                <!-- Slider buttons -->
+
+                ${
+                    images.length > 1
+                        ? `
+                            <button
+                                class="slider-btn prev-btn"
+                                onclick="slideImage(this, -1, event)"
+                                aria-label="Ảnh trước"
+                            >
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </button>
+
+                            <button
+                                class="slider-btn next-btn"
+                                onclick="slideImage(this, 1, event)"
+                                aria-label="Ảnh sau"
+                            >
+                                <i class="fa-solid fa-chevron-right"></i>
+                            </button>
+                          `
+                        : ""
+                }
+
+
+                <!-- Image slider -->
+
+                <div class="card-slider">
+                    ${imageHTML}
+                </div>
+
+            </div>
+
+
+            <!-- Card content -->
+
+            <div class="card-content">
+
+                <h3 class="card-title">
+                    ${profile.title || "Chưa có tiêu đề"}
+                </h3>
+
+
+                <div class="card-price-loc">
+
+                    <span class="price">
+                        ${price} VNĐ
                     </span>
 
-                    <span class="badge badge-vip">
-                        <i class="fa-solid fa-crown"></i>
-                        VIP
+                    <span class="location">
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        ${profile.area || profile.location || ""}
+
                     </span>
 
                 </div>
 
-                <img
-                    src="${image}"
-                    alt="${profile.title}"
-                    loading="lazy"
-                >
 
-                <span class="card-rating">
+                <!-- Phone -->
+
+                <div class="btn-card-phone">
 
                     <i class="fa-solid fa-phone"></i>
 
                     ${phone}
 
-                </span>
+                </div>
 
-                <div class="card-hover-actions">
 
-                    <button class="action-btn view-detail">
+                <!-- Stats -->
 
-                        <i class="fa-solid fa-eye"></i>
+                <div class="stats-grid">
 
-                        <span>Xem Chi Tiết</span>
+                    <div class="stat-box stat-full">
 
-                    </button>
+                        Số đo:
 
-                    <div class="action-row-buttons">
+                        <strong>
+                            ${height}
+                            -
+                            ${hop}
+                            -
+                            ${hip}
+                        </strong>
 
-                        <button class="action-btn-sm favorite">
+                    </div>
 
-                            <i class="fa-solid fa-heart"></i>
 
-                        </button>
+                    <div class="stat-box">
 
-                        <button class="action-btn-sm contact">
+                        Cao:
 
-                            <i class="fa-solid fa-comment-dots"></i>
+                        <strong>
+                            ${height}
+                        </strong>
 
-                        </button>
+                    </div>
+
+
+                    <div class="stat-box">
+
+                        Nặng:
+
+                        <strong>
+                            ${weight}
+                        </strong>
 
                     </div>
 
@@ -72,117 +206,6 @@ function renderCard(profile) {
 
             </div>
 
-            <div class="card-info">
-
-                <h3 class="card-title">
-
-                    ${profile.title}
-
-                </h3>
-
-                <div class="card-meta">
-
-                    <span class="meta-price">
-
-                        ${profile.price}
-
-                    </span>
-
-                    <span class="meta-divider">
-
-                        •
-
-                    </span>
-
-                    <span class="meta-location">
-
-                        <i class="fa-solid fa-location-dot"></i>
-
-                        ${profile.location}
-
-                    </span>
-
-                </div>
-
-            </div>
-
-        </div>
+        </article>
     `;
-}
-
-function renderGrid(profiles) {
-
-    const grid = document.getElementById("profileGrid");
-
-    if (!profiles || profiles.length === 0) {
-
-        grid.innerHTML = `
-            <div class="empty-state">
-
-                <i class="fa-solid fa-location-dot"></i>
-
-                <h2>Đang cập nhật dữ liệu</h2>
-
-                <p>Khu vực này chưa có profile.</p>
-
-            </div>
-        `;
-
-        return;
-    }
-
-    let html = "";
-
-    profiles.forEach(profile => {
-
-        html += renderCard(profile);
-
-    });
-
-    grid.innerHTML = html;
-
-}
-
-
-// Render District
-function renderDistricts(districts) {
-
-    const districtSelect = document.querySelector("#filterDistrict");
-
-    if (!districtSelect) return;
-
-
-    // Reset dropdown
-    districtSelect.innerHTML = `
-        <option value="all">
-            Chọn Quận/Huyện
-        </option>
-    `;
-
-
-    // Không có huyện
-    if (!districts || districts.length === 0) {
-
-        districtSelect.disabled = true;
-
-        return;
-    }
-
-    // Sắp xếp A-Z tiếng Việt
-    districts.sort((a, b) =>
-        a.name.localeCompare(b.name, "vi")
-    );
-
-    districts.forEach(district => {
-
-        districtSelect.innerHTML += `
-            <option value="${district.slug}">
-                ${district.name}
-            </option>
-        `;
-
-    });
-
-    districtSelect.disabled = false;
-
-}
+};

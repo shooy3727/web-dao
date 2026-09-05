@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GaiGoi247 - <%= profile.title %></title>
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/detail.css">
+</head>
+<body>
+
+    <div class="ambient-glow glow-pink"></div>
+    <div class="ambient-glow glow-purple"></div>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fa-solid fa-gem"></i>
+                <span>GAIGOI247</span>
+            </a>
+            </a>
+            <nav class="nav-links">
+                <a href="/auth" class="btn-primary-glow">Đăng bài miễn phí</a>
+            </nav>
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#">Trang chủ</a>
+            <a href="/auth" class="btn-primary-glow">Đăng bài miễn phí</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <nav class="breadcrumb">
+            <a href="/">Trang chủ</a>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <a href="/<%= encodeURIComponent(province) %>">
+                <%= province %>
+            </a>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <a href="/<%= encodeURIComponent(province) %>/<%= encodeURIComponent(area) %>">
+                <%= area %>
+            </a>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+            <span class="current">
+                <%= profile.title %>
+            </span>
+        </nav>
+
+        <section class="profile-main-section">
+            <div class="gallery-container">
+                <div class="slider-wrapper">
+                    <% if (profile.images && profile.images.length > 0) { %>
+
+                        <% profile.images.forEach((image, index) => { %>
+                            <div class="slide track <%= index === 0 ? 'active' : '' %>">
+                                <img
+                                    src="<%= image %>"
+                                    alt="<%= profile.title %> - Ảnh <%= index + 1 %>"
+                                >
+                            </div>
+                        <% }) %>
+
+                    <% } %>
+                </div>
+                <button class="slider-btn prev-btn" id="prevBtn"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="slider-btn next-btn" id="nextBtn"><i class="fa-solid fa-chevron-right"></i></button>
+                <div class="slider-dots" id="sliderDots">
+
+                    <% if (profile.images && profile.images.length > 0) { %>
+
+                        <% profile.images.forEach((image, index) => { %>
+                            <span
+                                class="dot <%= index === 0 ? 'active' : '' %>"
+                                data-index="<%= index %>"
+                            ></span>
+                        <% }) %>
+
+                    <% } %>
+
+                </div>
+            </div>
+
+            <div class="profile-info-card">
+                <div class="profile-header-flex">
+                    <h1 class="profile-title">
+                        <%= profile.title %>
+                    </h1>
+                    <% if (profile.is_verified) { %>
+                        <span class="badge-verified">
+                            <i class="fa-solid fa-circle-check"></i> Verified
+                        </span>
+                    <% } else { %>
+                        <span class="badge-unverified">
+                            <i class="fa-solid fa-circle-xmark"></i> Chưa xác thực
+                        </span>
+                    <% } %>
+                </div>
+
+                <div class="meta-details-grid">
+                    <div class="meta-item">
+                        <i class="fa-solid fa-cake-candles"></i>
+                        <span>
+                            <strong>Tuổi:</strong> <%= profile.age %> Tuổi
+                        </span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>
+                            <strong>Khu vực:</strong>
+                            <%= profile.area %>, <%= profile.province %>
+                        </span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fa-solid fa-tag"></i>
+                        <span>
+                            <strong>Mức giá:</strong>
+                            <%= Number(profile.price).toLocaleString('vi-VN') %>đ
+                        </span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fa-solid fa-ruler-combined"></i>
+                        <span>
+                            <strong>Số đo (3 vòng):</strong>
+                            Thêm -
+                            Thêm -
+                            Thêm
+                        </span>
+                    </div>
+                    <div class="meta-item">
+                        <i class="fa-solid fa-arrows-up-down"></i>
+                        <span>
+                            <strong>Chiều cao:</strong>
+                            Thêm cm
+                        </span>
+                    </div>
+
+                    <div class="meta-item">
+                        <i class="fa-solid fa-weight-scale"></i>
+                        <span>
+                            <strong>Cân nặng:</strong>
+                            Thêm kg
+                        </span>
+                    </div>
+                </div>
+
+                <div class="contact-box">
+                    <h3>Thông tin liên hệ</h3>
+                    <div class="contact-actions">
+                        <a href="tel:<%= profile.phone %>" class="btn-contact btn-call">
+                            <i class="fa-solid fa-phone"></i>
+                            Gọi điện: <%= profile.phone %>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="details-description-section">
+            <div class="card-box">
+                <h2><i class="fa-solid fa-circle-info"></i> Mô tả chi tiết</h2>
+                <div class="description-content">
+                    <p><%= profile.description %></p>
+                </div>
+            </div>
+
+            <div class="card-box">
+                <h2><i class="fa-solid fa-map-location-dot"></i> Thông tin địa điểm</h2>
+                <ul class="location-list">
+                    <li>
+                        <strong>Tỉnh / Thành phố:</strong>
+                        <%= profile.province %>
+                    </li>
+
+                    <li>
+                        <strong>Khu vực / Quận huyện:</strong>
+                        <%= profile.area %>
+                    </li>
+
+                    <li>
+                        <strong>Địa điểm chi tiết:</strong>
+                        <%= profile.location %>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="related-profiles-section">
+            <div class="section-header-flex">
+                <h2><i class="fa-solid fa-users-viewfinder"></i> Profile liên quan cùng khu vực</h2>
+                <div class="carousel-nav-controls">
+                    <button class="carousel-control-btn" id="carouselPrev"><i class="fa-solid fa-arrow-left"></i></button>
+                    <button class="carousel-control-btn" id="carouselNext"><i class="fa-solid fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="related-carousel-viewport" id="relatedCarousel">
+                <div class="related-track">
+
+                    <% relatedProfiles.forEach(item => { %>
+
+                        <div
+                            class="profile-card-item"
+                            onclick="location.href='/<%= item.province %>/<%= item.area %>/<%= item.id %>'"
+                        >
+
+                            <div class="card-img">
+
+                                <% if (item.images && item.images.length > 0) { %>
+                                    <img
+                                        src="<%= item.images[0] %>"
+                                        alt="<%= item.title %>"
+                                    >
+                                <% } %>
+
+                                <% if (item.is_verified) { %>
+                                    <span class="card-badge">Verified</span>
+                                <% } %>
+
+                            </div>
+
+                            <div class="card-body">
+
+                                <h4>
+                                    <%= item.title %>
+                                </h4>
+
+                                <p class="card-loc">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                    <%= item.area %>, <%= item.province %>
+                                </p>
+
+                                <p class="card-price">
+                                    <%= Number(item.price).toLocaleString('vi-VN') %>đ / giờ
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    <% }) %>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; <%= new Date().getFullYear() %> GaiGoi247. All rights reserved</p>
+            <div class="footer-social">
+                <a href="https://t.me/support_channel" target="_blank"><i class="fa-brands fa-telegram"></i> Hỗ trợ qua Telegram</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/detail.js"></script>
+</body>
+</html>

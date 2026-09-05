@@ -1,39 +1,50 @@
-// Route profile.route.js
-// ========================
-
 const router = require("express").Router();
 const profileService = require("../services/home.service");
 
 router.get("/", async (req, res) => {
 
-  try {
+    try {
 
-    const province = req.query.province;
+        const province = req.query.province;
 
-    const district = req.query.area || "all";
+        if (!province) {
+            return res.status(400).json({
+                message: "Province is required"
+            });
+        }
 
-    const page = Number(req.query.page || 1);
+        const area = req.query.area || "all";
+        const page = Number(req.query.page || 1);
 
-    const profiles = await profileService.getProfiles({
-      province,
-      district,
-      page
-    });
+        const price = req.query.price || "all";
+        const sort = req.query.sort || "default";
+        const age = req.query.age || "all";
+        const time = req.query.time || "default";
 
-    console.log(req.query);
-    console.log("LOG DISTRICT", district);
+        const profiles = await profileService.getProfiles({
+            province,
+            area,
+            page,
+            price,
+            sort,
+            age,
+            time,
+            limit: 6
+        });
 
-    res.json({ profiles });
+        res.json({
+            profiles
+        });
 
-  } catch(err){
+    } catch (err) {
 
-    console.error(err);
+        console.error(err);
 
-    res.status(500).json({
-      message:"Server Error"
-    });
+        res.status(500).json({
+            message: "Server Error"
+        });
 
-  }
+    }
 
 });
 

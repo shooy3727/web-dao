@@ -632,21 +632,21 @@ window.REGIONS = {
             ]
         },
         {
-            id: "vn-central-thua-thien-hue",
-            slug: "thua-thien-hue",
-            name: "Thừa Thiên Huế",
-            aliases: ["thua-thien-hue", "hue"],
+            id: "vn-central-hue",
+            slug: "hue",
+            name: "Huế",
+            aliases: ["hue", "hue"],
             provinceCode: "46",
             areas: [
-                { id: "thua-thien-hue-hue", slug: "hue", name: "Huế" },
-                { id: "thua-thien-hue-huong-thuy", slug: "huong-thuy", name: "Hương Thủy" },
-                { id: "thua-thien-hue-huong-tra", slug: "huong-tra", name: "Hương Trà" },
-                { id: "thua-thien-hue-phong-dien", slug: "phong-dien", name: "Phong Điền" },
-                { id: "thua-thien-hue-quang-dien", slug: "quang-dien", name: "Quảng Điền" },
-                { id: "thua-thien-hue-phu-vang", slug: "phu-vang", name: "Phú Vang" },
-                { id: "thua-thien-hue-phu-loc", slug: "phu-loc", name: "Phú Lộc" },
-                { id: "thua-thien-hue-a-luoi", slug: "a-luoi", name: "A Lưới" },
-                { id: "thua-thien-hue-nam-dong", slug: "nam-dong", name: "Nam Đông" }
+                { id: "hue-hue", slug: "hue", name: "Huế" },
+                { id: "hue-huong-thuy", slug: "huong-thuy", name: "Hương Thủy" },
+                { id: "hue-huong-tra", slug: "huong-tra", name: "Hương Trà" },
+                { id: "hue-phong-dien", slug: "phong-dien", name: "Phong Điền" },
+                { id: "hue-quang-dien", slug: "quang-dien", name: "Quảng Điền" },
+                { id: "hue-phu-vang", slug: "phu-vang", name: "Phú Vang" },
+                { id: "hue-phu-loc", slug: "phu-loc", name: "Phú Lộc" },
+                { id: "hue-a-luoi", slug: "a-luoi", name: "A Lưới" },
+                { id: "hue-nam-dong", slug: "nam-dong", name: "Nam Đông" }
             ]
         },
         {

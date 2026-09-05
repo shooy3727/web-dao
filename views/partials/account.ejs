@@ -1,0 +1,150 @@
+<!-- ================= SECTION THÔNG TIN TÀI KHOẢN ================= -->
+<div class="form-section account-info-section">
+  <h2 class="section-title">Thông tin tài khoản</h2>
+
+  <div class="account-info-list">
+    <!-- Username -->
+    <div class="account-info-row">
+      <div class="info-label">Username</div>
+      <div class="info-content">
+        <span class="user-handle">@<%= accountInfo.username || 'username' %></span>
+      </div>
+    </div>
+
+    <!-- Password -->
+    <div class="account-info-row">
+      <div class="info-label">Password</div>
+      <div class="info-content info-content-pass">
+        <span class="password-dots">••••••••</span>
+        <button type="button" class="btn-change-pass" id="openChangePassModal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+          <span>Đổi mật khẩu</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Telegram -->
+    <div class="account-info-row">
+      <div class="info-label">Telegram</div>
+      <div class="info-content info-content-status">
+        <% if (accountInfo.telegram_verified) { %>
+          <span class="telegram-handle">
+            @<%= accountInfo.telegram_username %>
+          </span>
+
+          <span class="badge-status-dot badge-active" title="Đã xác thực">
+            <span class="status-dot"></span> Đã xác thực
+          </span>
+        <% } else { %>
+          <span class="text-muted">Chưa liên kết</span>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Ngày tham gia -->
+    <div class="account-info-row">
+      <div class="info-label">Ngày tham gia</div>
+      <div class="info-content">
+        <span class="info-text-date"><%= accountInfo.createdAt ? new Date(accountInfo.createdAt).toLocaleDateString('vi-VN') : '11/08/2026' %></span>
+      </div>
+    </div>
+
+    <!-- Trạng thái -->
+    <div class="account-info-row">
+      <div class="info-label">Trạng thái</div>
+      <div class="info-content">
+        <span class="badge-status-dot badge-active">
+          <span class="status-dot"></span> Đang hoạt động
+        </span>
+      </div>
+    </div>
+
+    <!-- CỤM CÔNG TẮC BẬT / TẮT HỒ SƠ -->
+    <div class="profile-status-toggle-wrapper">
+      <div class="toggle-label-group">
+        <span class="toggle-title">Trạng thái hồ sơ</span>
+        <span class="toggle-desc">
+          Cho phép hồ sơ hiển thị công khai trên hệ thống
+        </span>
+      </div>
+
+      <label class="status-switch" for="profileStatusToggle">
+        <input 
+          type="checkbox" 
+          id="profileStatusToggle"
+          name="is_active"
+          <%= accountInfo.is_active !== false ? 'checked' : '' %>
+        >
+        <span class="switch-slider">
+          <span class="switch-text-on">Bật</span>
+          <span class="switch-text-off">Tắt</span>
+        </span>
+      </label>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= MODAL ĐỔI MẬT KHẨU ================= -->
+<div class="modal-overlay" id="changePassModal" aria-hidden="true" inert>
+  <div class="modal-card modal-card-sm" role="dialog" aria-modal="true" aria-labelledby="changePassModalTitle">
+    
+    <!-- Close Button -->
+    <button type="button" class="modal-close-btn" id="closePassModalBtn" aria-label="Đóng">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <!-- Modal Header -->
+    <div class="modal-header-custom">
+      <div class="modal-icon-wrapper text-pink">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      </div>
+      <h3 class="modal-title" id="changePassModalTitle">Đổi mật khẩu</h3>
+      <p class="modal-desc">Vui lòng nhập mật khẩu hiện tại và mật khẩu mới của bạn.</p>
+    </div>
+
+    <!-- Form Đổi Mật Khẩu -->
+    <form id="changePasswordForm" class="modal-form">
+      <div id="passFormAlert" class="alert-message hidden"></div>
+
+      <div class="form-group-custom">
+        <label for="currentPassword" class="form-label-custom">Mật khẩu hiện tại</label>
+        <div class="input-pass-wrapper">
+          <input type="password" id="currentPassword" name="currentPassword" class="form-input-custom" placeholder="Nhập mật khẩu cũ" required>
+          <button type="button" class="btn-toggle-pass" aria-label="Hiện mật khẩu">
+            <svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group-custom">
+        <label for="newPassword" class="form-label-custom">Mật khẩu mới</label>
+        <div class="input-pass-wrapper">
+          <input type="password" id="newPassword" name="newPassword" class="form-input-custom" placeholder="Tối thiểu 6 ký tự" minlength="6" required>
+          <button type="button" class="btn-toggle-pass" aria-label="Hiện mật khẩu">
+            <svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group-custom">
+        <label for="confirmPassword" class="form-label-custom">Xác nhận mật khẩu mới</label>
+        <div class="input-pass-wrapper">
+          <input type="password" id="confirmPassword" name="confirmPassword" class="form-input-custom" placeholder="Nhập lại mật khẩu mới" minlength="6" required>
+          <button type="button" class="btn-toggle-pass" aria-label="Hiện mật khẩu">
+            <svg class="eye-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-actions-stacked">
+        <button type="submit" class="btn btn-primary btn-submit-pass" id="savePassBtn">
+          <span class="btn-text">Cập nhật mật khẩu</span>
+          <span class="btn-spinner hidden"></span>
+        </button>
+        <button type="button" class="btn btn-cancel-modal" id="cancelPassBtn">Hủy bỏ</button>
+      </div>
+    </form>
+
+  </div>
+</div>

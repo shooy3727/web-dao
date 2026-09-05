@@ -4,38 +4,83 @@ const provinceHelper = require("../helpers/province.helper");
 
 async function home(req, res) {
 
-    try {
+  try {
 
-        const ip = geoHelper.getClientIp(req);
+    const ip = geoHelper.getClientIp(req);
 
-        const province = await geoHelper.getProvince(ip);
+    let province = req.params.province;
+    const area = req.params.area;
 
-        const provinceInfo = provinceHelper.getProvinceInfo(province);
+    // ==================================================
+    // FILTER QUERY
+    // ==================================================
 
-        const profiles = await profileService.getProfilesByProvince(
-            province,
-            6
-        );
+    const price = req.query.price || "all";
+    const sort = req.query.sort || "default";
+    const age = req.query.age || "all";
+    const time = req.query.time || "default";
 
-        res.render("index", {
 
-            profiles,
+    // ==================================================
+    // LẤY TỈNH THEO IP NẾU URL KHÔNG CÓ TỈNH
+    // ==================================================
 
-            province,
-
-            provinceInfo,
-
-            provinces: provinceHelper.provinces
-
-        });
-
-    } catch (err) {
-
-        console.error(err);
-
-        res.status(500).send("Server Error");
-
+    if (!province) {
+      province = await geoHelper.getProvince(ip);
     }
+
+
+    // ==================================================
+    // PROVINCE INFO
+    // ==================================================
+
+    const provinceInfo = provinceHelper.getProvinceInfo(province);
+
+
+    // ==================================================
+    // GET PROFILES + FILTER
+    // ==================================================
+
+    const profiles = await profileService.getProfiles({
+      province,
+      area: area || "all",
+      page: 1,
+      price,
+      sort,
+      age,
+      time,
+      limit: 6
+    });
+
+
+    // ==================================================
+    // RENDER
+    // ==================================================
+
+    res.render("index", {
+      profiles,
+      province,
+      area,
+      provinceInfo,
+      provinces: provinceHelper.provinces,
+
+      // Trả filter về EJS
+      filters: {
+        price,
+        sort,
+        age,
+        time
+      }
+
+    });
+
+  } catch (err) {
+
+    console.error(err);
+
+    res.status(500).send("Server Error");
+
+  }
 
 }
 

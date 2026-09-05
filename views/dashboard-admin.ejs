@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="/css/admin-dashboard.css">
+</head>
+<body class="bg-[#0b0f17] text-slate-200 font-sans antialiased min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+
+  <!-- Mobile Overlay -->
+  <div id="sidebar-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden md:hidden transition-opacity duration-300"></div>
+
+  <!-- ========================================
+       1. SIDEBAR ADMIN
+  ======================================== -->
+  <aside id="sidebar" class="fixed md:sticky top-0 left-0 z-50 h-screen w-64 bg-[#111827]/80 backdrop-blur-xl border-r border-slate-800/80 flex flex-col transition-transform duration-300 -translate-x-full md:translate-x-0">
+    <!-- Brand Logo -->
+    <div class="h-16 flex items-center justify-between px-6 border-b border-slate-800/80">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+          <i data-lucide="shield" class="w-5 h-5 text-white"></i>
+        </div>
+        <span class="font-bold text-lg tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-slate-400">ADMIN PANEL</span>
+      </a>
+      <button id="close-sidebar-btn" class="md:hidden text-slate-400 hover:text-white p-1">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+      <a href="#dashboard" class="nav-item active flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#registrations" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 transition-all duration-200">
+        <i data-lucide="users" class="w-5 h-5"></i>
+        <span>Người đăng ký</span>
+      </a>
+      <a href="#verified-human" class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-400 hover:text-slate-100 hover:bg-slate-800/50 transition-all duration-200">
+        <i data-lucide="user-check" class="w-5 h-5"></i>
+        <span>Verified Human</span>
+      </a>
+    </nav>
+
+    <!-- Logout Button -->
+    <div class="p-4 border-t border-slate-800/80">
+      <a href="/logout" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition-all duration-200">
+        <i data-lucide="log-out" class="w-5 h-5"></i>
+        <span>Đăng xuất</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT WRAPPER -->
+  <div class="flex-1 flex flex-col min-w-0 min-h-screen">
+
+    <!-- ========================================
+         2. HEADER
+    ======================================== -->
+    <header class="sticky top-0 z-30 h-16 bg-[#0b0f17]/80 backdrop-blur-md border-b border-slate-800/80 px-4 md:px-8 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <button id="open-sidebar-btn" class="md:hidden text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+        <h1 class="text-lg md:text-xl font-bold text-white tracking-tight">Admin Dashboard</h1>
+      </div>
+
+      <!-- Admin Profile & Notification -->
+      <div class="flex items-center gap-3 md:gap-4">
+        <button class="relative p-2 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800/60 transition-colors">
+          <i data-lucide="bell" class="w-5 h-5"></i>
+          <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-indigo-500 ring-2 ring-[#0b0f17]"></span>
+        </button>
+        <div class="h-6 w-[1px] bg-slate-800"></div>
+        <div class="flex items-center gap-3">
+          <img src="https://ui-avatars.com/api/?name=Admin+User&background=6366f1&color=fff" alt="Admin Avatar" class="w-9 h-9 rounded-xl ring-2 ring-indigo-500/30">
+          <div class="hidden sm:block text-left">
+            <p class="text-sm font-semibold text-slate-100 leading-none">Admin System</p>
+            <p class="text-xs text-slate-400 mt-1 leading-none">admin@system.com</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT BODY -->
+    <main class="flex-1 p-4 md:p-8 space-y-8 max-w-7xl w-full mx-auto">
+
+      <!-- ========================================
+           3. OVERVIEW / STATISTICS
+      ======================================== -->
+      <section id="dashboard" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <!-- Card 1 -->
+        <div class="stat-card bg-[#111827]/60 border border-slate-800/80 rounded-2xl p-5 hover:border-slate-700 transition-all duration-300">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium text-slate-400">Tổng người đăng ký</span>
+            <div class="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+              <i data-lucide="users" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+              <%= Number(stats.total_users || 0).toLocaleString("vi-VN") %>
+            </h3>
+            <p class="text-xs text-emerald-400 mt-2 flex items-center gap-1">
+              <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
+              <span>+12% so với tháng trước</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="stat-card bg-[#111827]/60 border border-slate-800/80 rounded-2xl p-5 hover:border-slate-700 transition-all duration-300">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium text-slate-400">Chờ duyệt</span>
+            <div class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+              <i data-lucide="clock" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+              <%= Number(stats.pending_human || 0).toLocaleString("vi-VN") %>
+            </h3>
+            <p class="text-xs text-amber-400 mt-2">Cần xử lý ngay</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="stat-card bg-[#111827]/60 border border-slate-800/80 rounded-2xl p-5 hover:border-slate-700 transition-all duration-300">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium text-slate-400">Verified Human</span>
+            <div class="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <i data-lucide="shield-check" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+              <%= Number(stats.verified_human || 0).toLocaleString("vi-VN") %>
+            </h3>
+            <p class="text-xs text-slate-400 mt-2">
+              <%
+                const totalUsers = Number(stats.total_users || 0);
+                const verifiedHumanCount = Number(stats.verified_human || 0);
+
+                const verifiedRate = totalUsers > 0
+                  ? ((verifiedHumanCount / totalUsers) * 100).toFixed(1)
+                  : 0;
+              %>
+              <%= verifiedRate %>% tỷ lệ xác thực
+            </p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="stat-card bg-[#111827]/60 border border-slate-800/80 rounded-2xl p-5 hover:border-slate-700 transition-all duration-300">
+          <div class="flex items-center justify-between">
+            <span class="text-sm font-medium text-slate-400">Đang hoạt động</span>
+            <div class="p-2.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              <i data-lucide="activity" class="w-5 h-5"></i>
+            </div>
+          </div>
+          <div class="mt-4">
+            <h3 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+              <%= Number(stats.active_users || 0).toLocaleString("vi-VN") %>
+            </h3>
+            <p class="text-xs text-emerald-400 mt-2 flex items-center gap-1">
+              <i data-lucide="wifi" class="w-3.5 h-3.5"></i>
+              <span>Hoạt động bình thường</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================
+           4. DANH SÁCH NGƯỜI ĐĂNG KÝ + 7. SEARCH / FILTER
+      ======================================== -->
+      <section id="registrations" class="bg-[#111827]/60 border border-slate-800/80 rounded-2xl p-5 md:p-6 space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-white tracking-tight">Danh sách người đăng ký</h2>
+            <p class="text-xs text-slate-400 mt-1">Quản lý và xét duyệt các tài khoản người dùng mới</p>
+          </div>
+        </div>
+
+        <!-- Filter Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <!-- Search input -->
+          <div class="lg:col-span-2 relative">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <input type="text" id="search-input" placeholder="Tìm theo username, họ tên..." class="w-full bg-slate-900/80 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all">
+          </div>
+          <!-- Filters -->
+          <select id="filter-region" class="bg-slate-900/80 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-indigo-500 transition-all">
+            <option value="">Tất cả miền</option>
+            <option value="Miền Bắc">Miền Bắc</option>
+            <option value="Miền Trung">Miền Trung</option>
+            <option value="Miền Nam">Miền Nam</option>
+          </select>
+          <select id="filter-human" class="bg-slate-900/80 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-indigo-500 transition-all">
+            <option value="">Verified Human</option>
+            <option value="verified">Đã Duyệt</option>
+            <option value="pending">Chờ Duyệt</option>
+            <option value="rejected">Từ Chối</option>
+          </select>
+          <select id="filter-status" class="bg-slate-900/80 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-indigo-500 transition-all">
+            <option value="">Trạng thái</option>
+            <option value="Pending">Pending</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+
+        <!-- Desktop Table View -->
+        <div class="hidden lg:block overflow-x-auto rounded-xl border border-slate-800/80">
+          <table class="w-full text-left text-sm text-slate-300">
+            <thead class="bg-slate-900/80 text-xs uppercase tracking-wider text-slate-400 font-semibold border-b border-slate-800">
+              <tr>
+                <th class="py-3.5 px-4">Họ tên & Username</th>
+                <th class="py-3.5 px-4">Thời gian</th>
+                <th class="py-3.5 px-4">Khu vực / Miền</th>
+                <th class="py-3.5 px-4 text-center">Verified Human</th>
+                <th class="py-3.5 px-4 text-center">Verified Telegram</th>
+                <th class="py-3.5 px-4 text-right">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="user-table-body" class="divide-y divide-slate-800/50 bg-[#111827]/40">
+
+              <% if (users.length === 0) { %>
+
+                <tr>
+                  <td colspan="6" class="py-10 px-4 text-center text-slate-500">
+                    Chưa có người dùng nào.
+                  </td>
+                </tr>
+
+              <% } %>
+
+              <% users.forEach(user => { %>
+
+                <tr
+                  class="hover:bg-slate-800/30 transition-colors cursor-pointer"
+                  data-user-id="<%= user.id %>"
+                >
+
+                  <!-- Họ tên / Username -->
+                  <td
+                    class="py-3.5 px-4"
+                    onclick="openUserModal(<%= user.id %>)"
+                  >
+                    <div class="font-semibold text-slate-100">
+                      <%= user.fullname || "Chưa cập nhật" %>
+                    </div>
+
+                    <div class="text-xs text-indigo-400">
+                      @<%= user.username %>
+                    </div>
+                  </td>
+
+
+                  <!-- Thời gian -->
+                  <td
+                    class="py-3.5 px-4 text-xs"
+                    onclick="openUserModal(<%= user.id %>)"
+                  >
+                    <div class="text-slate-200">
+                      <%= new Date(user.created_at).toLocaleDateString("vi-VN") %>
+                    </div>
+
+                    <div class="text-slate-400">
+                      <%= new Date(user.created_at).toLocaleTimeString("vi-VN", {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                      }) %>
+                    </div>
+                  </td>
+
+
+                  <!-- Khu vực -->
+                  <td
+                    class="py-3.5 px-4 text-xs"
+                    onclick="openUserModal(<%= user.id %>)"
+                  >
+                    <div class="text-slate-200">
+                      <%= user.province || user.area || "Chưa cập nhật" %>
+                    </div>
+
+                    <div class="text-slate-400">
+                      <%= user.region || "Chưa cập nhật" %>
+                    </div>
+                  </td>
+
+
+                  <!-- Verified Human -->
+                  <td
+                    class="py-3.5 px-4 text-center"
+                    onclick="openUserModal(<%= user.id %>)"
+                  >
+
+                    <% if (user.human_verification_status === "approved") { %>
+
+                      <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        Approved
+                      </span>
+
+                    <% } else if (user.human_verification_status === "pending") { %>
+
+                      <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                        Pending
+                      </span>
+
+                    <% } else if (user.human_verification_status === "rejected") { %>
+
+                      <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                        Rejected
+                      </span>
+
+                    <% } %>
+
+                  </td>
+
+
+                  <!-- Telegram -->
+                  <td
+                    class="py-3.5 px-4 text-center"
+                    onclick="openUserModal(<%= user.id %>)"
+                  >
+
+                    <% if (user.telegram_verified) { %>
+
+                      <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                        Yes
+                      </span>
+
+                    <% } else { %>
+
+                      <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+                        No
+                      </span>
+
+                    <% } %>
+
+                  </td>
+
+
+                  <!-- Thao tác -->
+                  <td class="py-3.5 px-4 text-right">
+
+                    <% if (user.human_verification_status === "pending") { %>
+
+                      <div
+                        class="flex items-center justify-end gap-2"
+                        onclick="event.stopPropagation()"
+                      >
+
+                        <button
+                          onclick="handleApprove(<%= user.id %>)"
+                          class="px-3 py-1.5 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-medium transition-colors"
+                        >
+                          Đồng ý
+                        </button>
+
+                        <button
+                          onclick="handleReject(<%= user.id %>)"
+                          class="px-3 py-1.5 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-lg text-xs font-medium transition-colors"
+                        >
+                          Từ chối
+                        </button>
+
+                      </div>
+
+                    <% } else { %>
+
+                      <span class="text-xs text-slate-500">
+                        Đã xử lý
+                      </span>
+
+                    <% } %>
+
+                  </td>
+
+                </tr>
+
+              <% }) %>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Mobile / Tablet Card View -->
+        <div id="user-card-list" class="lg:hidden space-y-4">
+
+          <% if (users.length === 0) { %>
+
+            <div class="text-center py-10 text-slate-500">
+              Chưa có người dùng nào.
+            </div>
+
+          <% } %>
+
+          <% users.forEach(user => { %>
+
+            <div
+              class="bg-[#111827]/80 border border-slate-800 rounded-xl p-4 space-y-3"
+              data-user-id="<%= user.id %>"
+            >
+
+              <div
+                class="flex items-center justify-between cursor-pointer"
+                onclick="openUserModal(<%= user.id %>)"
+              >
+
+                <div>
+                  <h4 class="font-bold text-slate-100">
+                    <%= user.fullname || "Chưa cập nhật" %>
+                  </h4>
+
+                  <p class="text-xs text-indigo-400">
+                    @<%= user.username %>
+                  </p>
+                </div>
+
+                <div class="text-right text-xs">
+
+                  <p class="text-slate-300">
+                    <%= new Date(user.created_at).toLocaleDateString("vi-VN") %>
+                  </p>
+
+                  <p class="text-slate-400">
+                    <%= new Date(user.created_at).toLocaleTimeString("vi-VN", {
+                      hour: "2-digit",
+                      minute: "2-digit"
+                    }) %>
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <div
+                class="grid grid-cols-1 gap-2 text-xs border-t border-b border-slate-800/60 py-2.5 cursor-pointer"
+                onclick="openUserModal(<%= user.id %>)"
+              >
+
+                <div>
+                  <span class="text-slate-400">Khu vực:</span>
+
+                  <span class="text-slate-200 font-medium">
+                    <%= user.province || user.area || "Chưa cập nhật" %>
+                    (<%= user.region || "Chưa cập nhật" %>)
+                  </span>
+                </div>
+
+
+                <div>
+                  <span class="text-slate-400">Telegram:</span>
+
+                  <% if (user.telegram_verified) { %>
+                    <span class="text-blue-400">Đã xác minh</span>
+                  <% } else { %>
+                    <span class="text-slate-500">Chưa xác minh</span>
+                  <% } %>
+                </div>
+
+
+                <div>
+                  <span class="text-slate-400">Human:</span>
+
+                  <% if (user.human_verification_status === "approved") { %>
+                    <span class="text-emerald-400">Approved</span>
+                  <% } else if (user.human_verification_status === "pending") { %>
+                    <span class="text-amber-400">Pending</span>
+                  <% } else { %>
+                    <span class="text-rose-400">Rejected</span>
+                  <% } %>
+                </div>
+
+              </div>
+
+
+              <% if (user.human_verification_status === "pending") { %>
+
+                <div class="flex gap-2 pt-1">
+
+                  <button
+                    onclick="handleApprove(<%= user.id %>)"
+                    class="flex-1 py-2 bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 rounded-lg text-xs font-semibold transition-colors"
+                  >
+                    Đồng ý
+                  </button>
+
+                  <button
+                    onclick="handleReject(<%= user.id %>)"
+                    class="flex-1 py-2 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-lg text-xs font-semibold transition-colors"
+                  >
+                    Từ chối
+                  </button>
+
+                </div>
+
+              <% } %>
+
+            </div>
+
+          <% }) %>
+
+        </div>
+      </section>
+
+      <!-- ========================================
+           5. VERIFIED HUMAN SECTION
+      ======================================== -->
+      <section id="verified-human" class="bg-[#111827]/60 border border-slate-800/80 rounded-2xl p-5 md:p-6 space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-white tracking-tight">Danh sách Verified Human</h2>
+          <p class="text-xs text-slate-400 mt-1">Các tài khoản đã hoàn thành quy trình xác minh danh tính</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+          <% const verifiedUsers = users.filter(
+            user => user.human_verification_status === "approved"
+          ); %>
+
+
+          <% if (verifiedUsers.length === 0) { %>
+
+            <div class="col-span-full text-center py-10 text-slate-500">
+              Chưa có tài khoản Verified Human.
+            </div>
+
+          <% } %>
+
+
+          <% verifiedUsers.forEach(user => { %>
+
+            <div
+              class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-4 space-y-3 hover:border-emerald-500/30 transition-all"
+            >
+
+              <div class="flex items-center justify-between">
+
+                <div class="flex items-center gap-3">
+
+                  <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center font-bold text-sm">
+
+                    <%= user.fullname
+                      ? user.fullname.charAt(0).toUpperCase()
+                      : user.username.charAt(0).toUpperCase()
+                    %>
+
+                  </div>
+
+
+                  <div>
+
+                    <h4 class="font-bold text-slate-100 text-sm">
+                      <%= user.fullname || "Chưa cập nhật" %>
+                    </h4>
+
+                    <p class="text-xs text-indigo-400">
+                      @<%= user.username %>
+                    </p>
+
+                  </div>
+
+                </div>
+
+
+                <span class="px-2.5 py-1 text-xs font-semibold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  Approved
+                </span>
+
+              </div>
+
+
+              <div class="text-xs text-slate-400 space-y-1 pt-2 border-t border-slate-800/60">
+
+                <p>
+                  Khu vực:
+                  <span class="text-slate-200">
+                    <%= user.province || user.area || "Chưa cập nhật" %>
+                    -
+                    <%= user.region || "Chưa cập nhật" %>
+                  </span>
+                </p>
+
+                <p>
+                  Ngày ĐK:
+                  <span class="text-slate-200">
+                    <%= new Date(user.created_at).toLocaleString("vi-VN") %>
+                  </span>
+                </p>
+
+              </div>
+
+            </div>
+
+          <% }) %>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ========================================
+       6. USER DETAIL MODAL
+  ======================================== -->
+  <div id="user-detail-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div class="bg-[#111827] border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl transform scale-95 transition-transform duration-300 space-y-6 relative">
+      <!-- Close Button -->
+      <button id="close-modal-btn" class="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-4">
+        <div class="w-14 h-14 rounded-2xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center text-xl font-bold" id="modal-avatar">
+          NV
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-white" id="modal-fullname">--</h3>
+          <p class="text-xs text-indigo-400" id="modal-username">@--</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800/80 text-sm">
+        <div>
+          <p class="text-xs text-slate-500">Ngày đăng ký</p>
+          <p class="font-medium text-slate-200 mt-0.5" id="modal-date">--</p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500">Giờ đăng ký</p>
+          <p class="font-medium text-slate-200 mt-0.5" id="modal-time">--</p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500">Khu vực</p>
+          <p class="font-medium text-slate-200 mt-0.5" id="modal-city">--</p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500">Miền</p>
+          <p class="font-medium text-slate-200 mt-0.5" id="modal-region">--</p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500">Verified Human</p>
+          <div class="mt-1" id="modal-v-human">--</div>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500">Trạng thái tài khoản</p>
+          <div class="mt-1" id="modal-status">--</div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button id="modal-close-action" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-sm font-medium transition-colors">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom JS -->
+  <!-- Dữ liệu thật từ Controller -->
+  <script>
+    window.ADMIN_USERS = <%- JSON.stringify(users) %>;
+  </script>
+
+  <!-- Custom JS -->
+  <script src="/js/admin-dashboard.js"></script>
+
+</body>
+</html>

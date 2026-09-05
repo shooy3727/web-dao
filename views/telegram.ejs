@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác thực Telegram - CineVerse Premium</title>
+    <!-- Font giống auth.ejs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icon FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/telegram.css">
+</head>
+<body class="premium-dark-theme telegram-page-body">
+
+    <!-- Background Blobs (Hiệu ứng blur glow nền) -->
+    <div class="background-glow">
+        <div class="blob blob-purple"></div>
+        <div class="blob blob-blue"></div>
+    </div>
+
+    <main class="main-content">
+        <!-- Card chính sử dụng lối thiết kế Glassmorphism -->
+        <div class="verif-card-glass fade-in">
+            
+            <div class="card-header text-center">
+                <!-- Logo giống auth.ejs -->
+                <a href="/" class="logo logo-center">Cine<span>Verse</span></a>
+                
+                <!-- Icon Telegram lớn với hiệu ứng float -->
+                <div class="telegram-icon-wrapper">
+                    <i class="fa-brands fa-telegram telegram-float-icon"></i>
+                </div>
+                
+                <h1 class="verif-title">Liên kết Telegram</h1>
+                <div class="account-info-card">
+                  <div class="account-avatar">
+                      <i class="fa-solid fa-user"></i>
+                  </div>
+
+                  <div class="account-content">
+                      <span class="account-label">
+                          Đang xác thực tài khoản
+                      </span>
+
+                      <strong class="account-name">
+                          <%= user.fullname %>
+                      </strong>
+
+                      <span class="account-username">
+                          @<%= user.username %>
+                      </span>
+                  </div>
+              </div>
+              <p class="verif-subtitle"></p>
+            </div>
+
+            <div class="card-body">
+                <!-- Danh sách 4 lợi ích -->
+                <ul class="benefits-list">
+                    <li><i class="fa-solid fa-circle-check"></i> Tự động vào Telegram để xác thực</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Dashboard mở khóa, Có thể đăng bài</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Nhận thông báo Telegram</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Bảo vệ tài khoản</li>
+                </ul>
+
+                <!-- VÙNG TRỐNG CHO TELEGRAM WIDGET -->
+                <!-- Sau này bạn sẽ chèn script Telegram Login Widget vào trong thẻ div này -->
+                <div class="telegram-widget-placeholder" id="telegramWidgetContainer">
+                    <div class="placeholder-content">
+                        <i class="fa-brands fa-telegram fa-spin-pulse"></i>
+                        <span>Nhấn nút để xác thực Telegram...</span>
+                    </div>
+                    <button id="telegramConnectBtn" class="telegram-connect-btn">
+                        <i class="fa-brands fa-telegram"></i>
+                        Kết nối Telegram
+                    </button>
+
+                    <div id="telegramLoading" class="telegram-loading hidden">
+                        <div class="loading-spinner"></div>
+                        <p>Đang mở Telegram...</p>
+                    </div>
+                </div>
+
+                <div id="telegramLoading" class="telegram-loading hidden">
+                    <div class="loading-spinner"></div>
+                    <p>
+                      Đang mở Telegram...
+                    </p>
+                </div>
+                <!-- /VÙNG TRỐNG CHO TELEGRAM WIDGET -->
+
+                <p class="redirect-note text-center">
+                  Được xác thực trực tiếp bởi Telegram,<br>
+                  CineVerse không lưu mật khẩu Telegram của bạn..
+                </p>
+
+                <!-- Box nhỏ: Vì sao cần xác thực? -->
+                <div class="why-box-glass">
+                    <div class="why-header">
+                        <i class="fa-solid fa-circle-question"></i>
+                        <h3>Vì sao cần xác thực?</h3>
+                    </div>
+                    <ul class="why-content">
+                        <li>Mỗi tài khoản chỉ liên kết với một Telegram.</li>
+                        <li>Chống spam.</li>
+                        <li>Bảo vệ tài khoản.</li>
+                        <li>Nhận thông báo quản trị.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="minimal-footer text-center">
+        <p>CineVerse Premium &copy; 2026</p>
+    </footer>
+
+    <script>
+        const telegramLink = <%- JSON.stringify(telegramLink) %>;
+    </script>
+    <script src="/js/telegram.js"></script>
+</body>
+</html>

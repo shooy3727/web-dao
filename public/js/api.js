@@ -1,12 +1,12 @@
 // ===========================
 // Profiles theo tỉnh
 // ===========================
-async function getProfiles(province, district = "all", page = 1) {
+async function getProfiles(province, area = "all", page = 1) {
 
     let url = `/api/profiles?province=${province}&page=${page}`;
 
-    if (district !== "all") {
-        url += `&district=${encodeURIComponent(district)}`;
+    if (area !== "all") {
+        url += `&area=${encodeURIComponent(area)}`;
     }
 
     const res = await fetch(url);
@@ -18,10 +18,10 @@ async function getProfiles(province, district = "all", page = 1) {
 // ===========================
 // Profiles theo huyện
 // ===========================
-async function getProfilesByArea(province, district, page = 1) {
+async function getProfilesByArea(province, area, page = 1) {
 
     const res = await fetch(
-        `/api/profiles?province=${province}&district=${encodeURIComponent(district)}&page=${page}`
+        `/api/profiles?province=${province}&area=${encodeURIComponent(district)}&page=${page}`
     );
 
     return await res.json();

@@ -1,0 +1,107 @@
+/* Style riêng tối ưu layout căn giữa cho trang 404 */
+.error-page-wrapper {
+  min-height: calc(100vh - var(--header-height) - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  text-align: center;
+}
+
+.error-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 48px 24px;
+  max-width: 580px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.error-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--accent-gradient);
+}
+
+.error-code-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.error-code {
+  font-size: clamp(5rem, 15vw, 8.5rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -2px;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 8px 20px rgba(255, 0, 127, 0.25));
+}
+
+.error-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 0, 127, 0.08);
+  border: 1px solid var(--border-light);
+  color: var(--color-pink);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.error-title {
+  font-size: clamp(1.35rem, 4vw, 1.8rem);
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.error-desc {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 440px;
+  margin: 0 auto 32px auto;
+}
+
+.error-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.error-actions .btn {
+  min-width: 160px;
+}
+
+/* Hiệu ứng đốm sáng Neon trang trí */
+.glow-sphere {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: var(--color-pink-glow);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-1 { top: -30px; right: -30px; }
+.glow-2 { bottom: -30px; left: -30px; background: var(--color-purple-glow); }

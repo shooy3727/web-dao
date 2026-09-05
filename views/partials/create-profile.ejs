@@ -1,0 +1,275 @@
+<div class="content-header">
+  <h1 class="page-title">Cập Nhật Hồ Sơ Cá Nhân</h1>
+  <p class="page-subtitle">Điền đầy đủ thông tin bên dưới để hiển thị chuyên nghiệp trên hệ thống.</p>
+</div>
+
+<!-- FORM THÔNG TIN -->
+<form 
+  class="profile-form" 
+  id="profileForm"  
+  enctype="multipart/form-data" 
+  data-mode="<%= profile ? 'edit' : 'create' %>"
+  novalidate>
+  
+  <!-- SECTION 1: THÔNG TIN CƠ BẢN -->
+  <section class="form-section">
+    <h2 class="section-title">Thông Tin Cơ Bản</h2>
+    
+    <div class="form-grid">
+      <!-- Họ và tên -->
+      <div class="form-group col-full">
+        <label for="fullname" class="form-label">Họ và tên <span class="required">*</span></label>
+        <input type="text" id="fullname" name="fullname" class="form-control" placeholder="Nhập họ và tên đầy đủ..." value="<%= profile?.fullname || '' %>">
+        <div class="error-message" id="error-fullname">Vui lòng nhập họ và tên.</div>
+      </div>
+
+      <!-- Tiêu đề hồ sơ -->
+      <div class="form-group col-full">
+        <label for="title" class="form-label">Tiêu đề hồ sơ <span class="required">*</span></label>
+        <input type="text" id="title" name="title" class="form-control" placeholder="Ví dụ: Người mẫu ảnh tự do / Diễn viên trẻ..." value="<%= profile?.title || '' %>">
+        <div class="error-message" id="error-title">Vui lòng nhập tiêu đề hồ sơ.</div>
+      </div>
+
+      <!-- Mô tả -->
+      <div class="form-group col-full">
+        <label for="description" class="form-label">Mô tả chi tiết <span class="required">*</span></label>
+        <textarea id="description" name="description" class="form-control text-area" rows="5" placeholder="Giới thiệu bản thân, phong cách làm việc, kinh nghiệm..."><%= profile?.description || '' %></textarea>
+        <div class="error-message" id="error-description">Vui lòng nhập mô tả chi tiết.</div>
+      </div>
+
+      <!-- Năm sinh -->
+      <div class="form-group col-half">
+        <label for="birth_year" class="form-label">Năm sinh <span class="required">*</span></label>
+        <input
+          type="text"
+          id="birth_year"
+          name="birth_year"
+          class="form-control"
+          placeholder="VD: 2000"
+          inputmode="numeric"
+          maxlength="4"
+          autocomplete="bday"
+          value="<%= profile?.birth || '' %>"
+        >
+        <div class="error-message" id="error-birth_year">Vui lòng nhập năm sinh hợp lệ.</div>
+      </div>
+
+      <!-- Giá -->
+      <div class="form-group col-half">
+        <label for="price" class="form-label">Giá dịch vụ (VNĐ) <span class="required">*</span></label>
+        <input
+          type="text"
+          id="price"
+          name="price"
+          class="form-control"
+          placeholder="VD: 200,000"
+          inputmode="numeric"
+          autocomplete="off"
+          value="<%= profile?.price ? Number(profile.price).toLocaleString('en-US') : '' %>"
+        >
+        <div class="error-message" id="error-price">Vui lòng nhập giá dịch vụ.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: CHỈ SỐ HÌNH THỂ & NGOẠI HÌNH -->
+  <section class="form-section">
+    <h2 class="section-title">Chỉ Số Hình Thể & Ngoại Hình</h2>
+    
+    <div class="form-grid">
+      <!-- Chiều cao -->
+      <div class="form-group col-half">
+        <label for="height" class="form-label">Chiều cao (cm)</label>
+        <input 
+          type="number" 
+          id="height" 
+          name="height" 
+          class="form-control" 
+          placeholder="VD: 170" 
+          min="140" 
+          max="200"
+          value="<%= profile?.height || '' %>"
+        >
+        <div class="error-message" id="error-height">
+          Chiều cao phải từ 140 đến 200 cm.
+        </div>
+      </div>
+
+      <!-- Cân nặng -->
+      <div class="form-group col-half">
+        <label for="weight" class="form-label">Cân nặng (kg)</label>
+        <input 
+          type="number" 
+          id="weight" 
+          name="weight" 
+          class="form-control" 
+          placeholder="VD: 52" 
+          min="45" 
+          max="100"
+          value="<%= profile?.weight || '' %>"
+        >
+        <div class="error-message" id="error-weight">
+          Cân nặng phải từ 45 đến 100 kg.
+        </div>
+      </div>
+
+      <!-- Số đo 3 vòng (Giới hạn chuẩn 50 - 120) -->
+      <div class="form-group col-full">
+        <label class="form-label">Số đo 3 vòng (cm) <span class="label-hint">(Vòng 1 - Vòng 2 - Vòng 3)</span></label>
+        <div class="measurements-triple-group">
+          <div class="measure-item">
+            <input 
+            type="number"
+            id="bust"
+            name="bust"
+            class="form-control text-center"
+            placeholder="V1 (50-120)"
+            min="50"
+            max="120"
+            value="<%= profile?.bust || '' %>"
+          >
+          <div class="error-message" id="error-bust">
+            Vòng ngực phải từ 50 đến 120 cm.
+          </div>
+          </div>
+          <span class="separator">-</span>
+          <div class="measure-item">
+            <input 
+              type="number"
+              id="waist"
+              name="waist"
+              class="form-control text-center"
+              placeholder="V2 (50-120)"
+              min="40"
+              max="90"
+              value="<%= profile?.waist || '' %>"
+            >
+            <div class="error-message" id="error-waist">
+              Vòng eo phải từ 40 đến 90 cm.
+            </div>
+          </div>
+          <span class="separator">-</span>
+          <div class="measure-item">
+            <input 
+              type="number"
+              id="hip"
+              name="hip"
+              class="form-control text-center"
+              placeholder="V3 (50-120)"
+              min="50"
+              max="120"
+              value="<%= profile?.hip || '' %>"
+            >
+            <div class="error-message" id="error-hip">
+              Vòng mông phải từ 50 đến 120 cm.
+            </div>
+          </div>
+        </div>
+        <div class="error-message" id="error-measurements">Số đo các vòng phải nằm trong khoảng từ 50 đến 120 cm.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THÔNG TIN LIÊN HỆ -->
+  <section class="form-section">
+    <h2 class="section-title">Thông Tin Liên Hệ</h2>
+    <div class="form-grid">
+      <!-- Số điện thoại -->
+      <div class="form-group col-half">
+        <label for="phone" class="form-label">Số điện thoại <span class="required">*</span></label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          class="form-control"
+          placeholder="0912345678"
+          inputmode="numeric"
+          maxlength="10"
+          autocomplete="tel"
+          value="<%= profile?.phone || '' %>"
+        >
+        <div class="error-message" id="error-phone">Vui lòng nhập số điện thoại hợp lệ.</div>
+      </div>
+
+      <!-- Địa chỉ đường, khách sạn... -->
+      <div class="form-group col-half">
+        <label for="address" class="form-label">Địa chỉ đường / Tòa nhà / Khách sạn <span class="required">*</span></label>
+        <input type="text" id="address" name="address" class="form-control" placeholder="VD: Số 123 Đường Nguyễn Huệ..." value="<%= profile?.address || '' %>">
+        <div class="error-message" id="error-address">Vui lòng nhập địa chỉ đường/khách sạn.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: KHU VỰC -->
+  <section class="form-section">
+    <h2 class="section-title">Khu Vực Hoạt Động</h2>
+    
+    <div class="form-grid">
+      <!-- Vùng miền -->
+      <div class="form-group col-third">
+        <label for="region" class="form-label">Chọn Vùng <span class="required">*</span></label>
+        <select id="region" name="region" class="form-control form-select">
+          <option value="">-- Chọn Vùng --</option>
+          <option value="bac">Miền Bắc</option>
+          <option value="trung">Miền Trung</option>
+          <option value="nam">Miền Nam</option>
+          <option value="tay_nguyen">Tây Nguyên</option>
+        </select>
+        <div class="error-message" id="error-region">Vui lòng chọn vùng hoạt động.</div>
+      </div>
+
+      <!-- Tỉnh / Thành phố -->
+      <div class="form-group col-third">
+        <label for="province" class="form-label">Tỉnh / Thành phố <span class="required">*</span></label>
+        <select id="province" name="province" class="form-control form-select">
+          <option value="">-- Chọn Tỉnh / TP --</option>
+        </select>
+        <div class="error-message" id="error-province">Vui lòng chọn Tỉnh / Thành phố.</div>
+      </div>
+
+      <!-- Quận / Huyện -->
+      <div class="form-group col-third">
+        <label for="district" class="form-label">Quận / Huyện <span class="required">*</span></label>
+        <select id="district" name="district" class="form-control form-select">
+          <option value="">-- Chọn Quận / Huyện --</option>
+        </select>
+        <div class="error-message" id="error-district">Vui lòng chọn Quận / Huyện.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: HÌNH ẢNH (UPLOAD TỐI ĐA 5 ẢNH) -->
+  <section class="form-section">
+    <h2 class="section-title">Hình Ảnh Hồ Sơ (Tối đa 5 ảnh)</h2>
+    <p class="section-subtitle">Tải lên từ 1 đến 5 hình ảnh chất lượng cao để hiển thị trên slider trang chi tiết.</p>
+
+    <div class="upload-grid" id="uploadGrid">
+      <!-- Loop 5 slots upload -->
+      <% for(let i = 0; i < 5; i++) { %>
+      <div class="upload-slot" data-index="<%= i %>">
+        <input type="file" accept="image/*" class="image-input" id="imageInput-<%= i %>" hidden>
+        <div class="upload-placeholder" onclick="document.getElementById('imageInput-<%= i %>').click()">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          <span>Ảnh <%= i + 1 %> <%= i === 0 ? '(Chính)' : '' %></span>
+        </div>
+        <div class="image-preview-container hidden">
+          <img src="" alt="Preview <%= i + 1 %>" class="preview-img">
+          <button type="button" class="btn-remove-img" title="Xóa ảnh" aria-label="Xóa ảnh">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <div class="error-message" id="error-images">Vui lòng tải lên ít nhất 1 hình ảnh hồ sơ.</div>
+  </section>
+
+  <!-- ACTION BUTTONS -->
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary btn-save">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+      Lưu Thay Đổi
+    </button>
+  </div>
+
+</form>

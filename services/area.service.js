@@ -12,8 +12,6 @@ async function getAreas(province) {
 
   const result = await pool.query(sql, [province]);
 
-  console.log(result.rows);
-
   return result.rows;
 
 }

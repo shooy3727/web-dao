@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng bài & Tạo Tài khoản Miễn Phí - GaiGoi247</title>
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body class="premium-dark-theme auth-page-body">
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fa-solid fa-gem"></i>
+                <span>GaiGoi247</span>
+            </a>
+            
+            <div class="nav-actions">
+                <a href="/" class="btn-back-home">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Trang chủ</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content auth-container-wrapper">
+        <div class="hero-glow"></div>
+        
+        <div class="auth-card-glass">
+            
+            <!-- Cột thông tin giới thiệu (Desktop/Tablet) -->
+            <div class="auth-info-panel">
+                <span class="hero-tag"><i class="fa-solid fa-sparkles"></i> Dành Cho Nhà Sáng Tạo</span>
+                <h1 class="auth-info-title">Đăng bài miễn phí & Kết nối hàng ngàn khách hàng</h1>
+                <p class="auth-info-desc">Tạo profile chuyên nghiệp, tiếp cận thị trường toàn quốc và khẳng định vị thế thương hiệu cá nhân của bạn trên GaiGoi247</p>
+                
+                <div class="auth-features-list">
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div>
+                            <h4>Duyệt bài siêu tốc</h4>
+                            <p>Hệ thống tự động hỗ trợ hiển thị bài viết nhanh chóng</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <div>
+                            <h4>Tăng lượt tiếp cận</h4>
+                            <p>Tối ưu hóa tìm kiếm theo Tỉnh/Thành & Quận/Huyện chính xác</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                        <div>
+                            <h4>Nền tảng hoàn toàn miễn phí</h4>
+                            <p>Không lấy bất kỳ phần trăm hoa hồng nào từ thu nhập của bạn</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột Form Đăng nhập / Đăng ký -->
+            <div class="auth-form-panel">
+                
+                <!-- Thanh Chuyển Tab -->
+                <div class="auth-tab-control">
+                    <button class="auth-tab-btn active" id="tabLoginBtn" onclick="switchAuthTab('login')">
+                        <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập
+                    </button>
+                    <button class="auth-tab-btn" id="tabRegisterBtn" onclick="switchAuthTab('register')">
+                        <i class="fa-solid fa-user-plus"></i> Đăng Ký
+                    </button>
+                </div>
+
+                <!-- FORM ĐĂNG NHẬP -->
+                <form
+                    id="loginForm"
+                    action="/auth/login" 
+                    method="POST"
+                    class="auth-form <%= activeTab === 'login' ? 'active' : '' %>">
+                    <div class="form-header">
+                        <h2>Chào mừng trở lại!</h2>
+                        <p>Đăng nhập để quản lý bài viết và profile của bạn.</p>
+                    </div>
+
+                    <% if (loginError) { %>
+                        <div class="alert-error">
+                            <%= loginError %>
+                        </div>
+                    <% } %>
+
+                    <% if (success) { %>
+                        <div class="alert-success">
+                            <%= success %>
+                        </div>
+                    <% } %>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-user"></i> Số điện thoại hoặc Username</label>
+                        <div class="input-wrapper">
+                            <input type="text" name="username" class="auth-input" placeholder="Nhập SĐT hoặc Username..." required>
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-lock"></i> Mật khẩu</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="loginPassword" name="password" class="auth-input" placeholder="Nhập mật khẩu..." required>
+                            <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility('loginPassword', this)"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember" checked>
+                            <span>Ghi nhớ đăng nhập</span>
+                        </label>
+                        <a href="/auth/forgot-password" class="forgot-link">Quên mật khẩu?</a>
+                    </div>
+
+                    <button
+                        class="btn-auth-submit <%= activeTab === 'login' ? 'active' : '' %>"
+                        type="submit"
+                    >
+                        <span>Đăng Nhập Ngay</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+
+                    <div class="form-footer-switch">
+                        Chưa có tài khoản đăng bài? <a href="javascript:void(0)" onclick="switchAuthTab('register')">Đăng ký ngay miễn phí</a>
+                    </div>
+                </form>
+
+                <!-- FORM ĐĂNG KÝ -->
+                <form
+                    id="registerForm"
+                    action="/auth/register" 
+                    method="POST"
+                    class="auth-form <%= activeTab === 'register' ? 'active' : '' %>">
+                    <div class="form-header">
+                        <h2>Đăng ký tài khoản</h2>
+                        <p>Điền thông tin bên dưới để bắt đầu đăng bài miễn phí.</p>
+                    </div>
+
+                    <% if (registerError) { %>
+                        <div class="alert-error">
+                            <%= registerError %>
+                        </div>
+                    <% } %>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-id-card"></i> Họ và Tên / Tên Thương Hiệu</label>
+                        <div class="input-wrapper">
+                            <input type="text" name="fullname" class="auth-input" placeholder="Ví dụ: Nguyễn Thị A" required>
+                            <i class="fa-solid fa-user input-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-envelope"></i> 
+                            Địa chỉ Telegram
+                        </label>
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                name="telegram" 
+                                class="auth-input" 
+                                placeholder="Username hoặc SĐT Telegram (không cần @) để nhận mã OTP" required
+                            >
+                            <i class="fa-brands fa-telegram input-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-user"></i>Username</label>
+                        <div class="input-wrapper">
+                            <input type="text" 
+                            name="username" 
+                            class="auth-input" 
+                            placeholder="Nhập Username..." required
+                            autocomplete="username"
+                            autocapitalize="none"
+                            spellcheck="false"
+                            >
+                            <i class="fa-solid fa-envelope input-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label"><i class="fa-solid fa-lock"></i> Mật khẩu</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="regPassword" name="password" class="auth-input" placeholder="Tối thiểu 6 ký tự..." required>
+                            <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility('regPassword', this)"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fa-solid fa-lock"></i>
+                            Nhập lại mật khẩu
+                        </label>
+
+                        <div class="input-wrapper">
+                            <input
+                                type="password"
+                                id="regConfirmPassword"
+                                name="confirm_password"
+                                class="auth-input"
+                                placeholder="Nhập lại mật khẩu..."
+                                required
+                            >
+
+                            <i
+                                class="fa-solid fa-eye toggle-password"
+                                onclick="togglePasswordVisibility('regConfirmPassword', this)">
+                            </i>
+                        </div>
+                        <!-- THÔNG BÁO LỖI KHI MẬT KHẨU KHÔNG THUỘC/TRÙNG KHỚP -->
+                        <small id="passwordError" class="field-error-text">
+                            <i class="fa-solid fa-circle-exclamation"></i> Mật khẩu không trùng khớp!
+                        </small>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="remember-me">
+                            <input type="checkbox" name="terms" required checked>
+                            <span>Tôi đồng ý với <a href="#" class="inline-link">Điều khoản sử dụng</a>.</span>
+                        </label>
+                    </div>
+
+                    <button
+                        class="btn-auth-submit <%= activeTab === 'register' ? 'active' : '' %>"
+                        type="submit"
+                    >
+                        <span>Tạo Tài Khoản & Đăng Bài</span>
+                        <i class="fa-solid fa-sparkles"></i>
+                    </button>
+
+                    <div class="form-footer-switch">
+                        Đã có tài khoản? <a href="javascript:void(0)" onclick="switchAuthTab('login')">Đăng nhập tại đây</a>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="premium-footer">
+        <div class="footer-blur-glow"></div>
+        <div class="footer-content">
+            <p>&copy; <%= new Date().getFullYear() %> GaiGoi247. All rights reserved   </p>
+        </div>
+    </footer>
+
+    <script>
+        window.activeTab = "<%= activeTab %>";
+    </script>
+    <script src="/js/auth.js"></script>
+</body>
+</html>
